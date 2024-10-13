@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code IDE</title>
+</head>
+<body>
+  <h1>Code IDE</h1>
+  <textarea id="code" rows="10" cols="50"></textarea>
+  <br>
+  <button onclick="compileCode()">Compile</button>
+  
+  <h2>Output</h2>
+  <textarea rows="10" cols="100" id="output" onkeypress="onInput(event)"></textarea>
+
+  <script src="https://api.jdoodle.com/js/sockjs.js"></script>
+  <script src="https://api.jdoodle.com/js/webstomp.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    let socketClient = webstomp.over(new SockJS('https://api.jdoodle.com/v1/stomp'), { heartbeat: false, debug: true });
+    let outputElement = document.getElementById('output');
+    let token = "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJKRE9PRExFIiwic3ViIjoiV1MtQVBJLVRPS0VOIiwiY2xpZW50LWlkIjoiZGFiODU3YzgxNzJlMmZjZjRkN2I5NDNlMjZiNjcxM2YiLCJpYXQiOjE3MTM0MTg2NjUsImV4cCI6MTcxMzQxODg0NX0.-50VY9zV8U6C6juGTVrLbyAcmSSAmqOMGUjUnjm3c8A"
+  
+    // function fetchToken() {
+    //   axios.post('https://api.jdoodle.com/v1/auth-token', {
+    //     clientId: 'dab857c8172e2fcf4d7b943e26b6713f',
+    //     clientSecret: '20ea5e30a6e4dbe7928ee2df3c852706de38e63a2b64b4bee7ba9a0761ef0321'
+    //   })
+    //   .then(function (response) {
+    //     // Handle success
+    //     console.log('Response Token:', response.data);
+    //     token = response.data
+    //   })
+    //   .catch(function (error) {
+    //     // Handle error
+    //     console.error('Error:', error);
+    //   });
+    // }
+
+    function compileCode() {
+      let code = document.getElementById('code').value;
+      console.log(code)
+      outputElement.value = "";
+      let data = JSON.stringify({
+        script: `${code}`,
+        language: "python3",
+        versionIndex: 3
+      });
+  
+      socketClient.send('/app/execute-ws-api-token', data, { message_type: 'execute', token: token });
+    }
+  
+    socketClient.connect({}, onWsConnection, onWsConnectionFailed);
+  
+    function onWsConnection() {
+      console.log('connection succeeded')
+  
+      socketClient.subscribe('/user/queue/execute-i', (message) => {
+        let messageBody = message.body;
+  
+        // Parse the message content to extract the statusCode
+        let statusCode = parseInt(message.headers.statusCode);
+  
+        if(statusCode === 200) {
+          // Process the message content as needed
+          console.log('Received message:', messageBody);
+          // Update the UI with the message content
+          outputElement.value += messageBody + '\n';
+        }else if(statusCode === 204){
+          outputElement.value += ' <--------- End of execution ---------->'
+        }
+  
+      });
+    }
+  
+    function onInput(e) {
+      let key = event.key
+        
+      if (event.key === 'Enter') {
+        key = '\n'
+      }
+      socketClient.send('/app/execute-ws-api-token', key, { message_type: 'input' })
+  
+    }
+  
+    function onWsConnectionFailed(e) {
+      console.log('connection failed');
+      console.log(e);
+    }
+  </script>
+</body>
+</html>
