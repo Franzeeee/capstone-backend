@@ -6,6 +6,7 @@ use App\Http\Controllers\CompilerController;
 use App\Http\Controllers\CourseClassController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\StudentProgressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -36,6 +37,8 @@ Route::get('student/{id}/classes', [StudentController::class, 'fetchStudentClass
 Route::post('announcement', [AnnouncementController::class, 'store']);
 Route::get('announcement/fetch', [AnnouncementController::class, 'fetchAllAnnouncements']);
 
+
+Route::get('student/progress', [StudentProgressController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [AuthController::class, 'user']);

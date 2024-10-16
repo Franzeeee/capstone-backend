@@ -51,4 +51,9 @@ class CourseClass extends Model
     {
         return $this->hasMany(Announcement::class);
     }
+
+    public function studentProgress()
+    {
+        return $this->hasMany(StudentProgress::class, 'course_class_id');
+    }
 }

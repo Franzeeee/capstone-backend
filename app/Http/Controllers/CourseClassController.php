@@ -7,6 +7,7 @@ use App\Models\CourseClass;
 use App\Models\ClassCode;
 use App\Models\ClassCodes;
 use App\Models\User;
+use App\Models\StudentProgress;
 use Illuminate\Support\Str;
 
 class CourseClassController extends Controller
@@ -125,6 +126,12 @@ class CourseClassController extends Controller
         if ($courseClass->students()->where('student_id', $student->id)->exists()) {
             return response()->json(['message' => 'Student already enrolled in this class'], 400);
         }
+
+        // Create a new progress entry when the student enrolls
+        StudentProgress::create([
+            'student_id' => $request->student_id,
+            'course_class_id' => $courseClass->id,
+        ]);
 
         // Attach the student to the class (enroll the student)
         $courseClass->students()->attach($student->id);
