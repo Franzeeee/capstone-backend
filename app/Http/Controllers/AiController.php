@@ -31,6 +31,6 @@ class AiController extends Controller
 
     public function getToken()
     {
-        return "Hell11o";
+        return "CODELAB Backend for API Fetching...";
     }
 }
