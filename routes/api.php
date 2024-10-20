@@ -25,6 +25,7 @@ use Symfony\Contracts\Service\Attribute\Required;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('receiveMessage', [AiController::class, 'index']);
+Route::get('generateAssessment', [AiController::class, 'generateAssessment']);
 Route::get('fetchCompilerToken', [CompilerController::class, 'getToken']);
 
 Route::post('class/create', [CourseClassController::class, 'createClass']);
@@ -40,10 +41,29 @@ Route::get('announcement/fetch', [AnnouncementController::class, 'fetchAllAnnoun
 
 Route::get('student/progress', [StudentProgressController::class, 'index']);
 
+
+Route::post('/upload/profile-picture', function (Request $request) {
+    // Validate the incoming request
+    $request->validate([
+        'profile_picture' => 'required|image|max:2048', // Max size: 2MB
+    ]);
+
+    // Store the uploaded profile picture in the 'profile_pictures' folder
+    $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+
+    return response()->json(['path' => $path], 201); // Return the file path
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [AuthController::class, 'user']);
     Route::post('logout', [AuthController::class, 'logout']);
     // API Route for OpenAI model
+    Route::get('authUser', function (Request $request) {
+        // Check if the user is authenticated
+        if ($request->user()) {
+            return response()->json(true);  // User is authenticated
+        }
 
-
+        return response()->json(false);  // User is not authenticated
+    });
 });

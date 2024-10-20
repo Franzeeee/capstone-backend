@@ -33,4 +33,29 @@ class AiController extends Controller
     {
         return "Hell11o";
     }
+
+    public function generateAssessment()
+    {
+        $message = "
+            Generate a programming assessment for python, the topic should be variables, loops, and functions.
+
+            Format:
+            Problem
+            Sample Input/Expected Output
+        ";
+        try {
+            $result = OpenAI::chat()->create([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    ['role' => 'user', 'content' => $message],
+                ],
+            ]);
+            return response()->json([
+                'message' => $result->choices[0]->message->content
+            ], 200);
+        } catch (\Exception $e) {
+            // Handle the error here
+            return response('An error occurred.', 500);
+        }
+    }
 }
