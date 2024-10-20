@@ -20,14 +20,14 @@ class Authenticate extends Middleware
         if ($jwt = $request->cookie('jwt')) {
             $request->headers->set('Authorization', 'Bearer ' . $jwt);
         }
-        try {
-            $this->authenticate($request, $guards);
-        } catch (\Exception $e) {
-            // Return JSON response if not authenticated
-            return response()->json([
-                'status' => 'Unauthenticated',
-            ], Response::HTTP_UNAUTHORIZED);
-        }
+        // try {
+        $this->authenticate($request, $guards);
+        // } catch (\Exception $e) {
+        //     // Return JSON response if not authenticated
+        //     return response()->json([
+        //         'status' => 'Unauthenticated',
+        //     ], Response::HTTP_UNAUTHORIZED);
+        // }
 
         return $next($request);
     }
