@@ -35,9 +35,9 @@ class CompilerController extends Controller
                 $responseBody = $response->json();
 
                 if (isset($responseBody['token'])) {
-                    return response()->json(['token' => $responseBody['token']]);
+                    return response()->json(['token' => $response->body()]);
                 } else {
-                    return response()->json(['token' => $responseBody['token']]);
+                    return response()->json(['token' => $response->body()]);
                 }
             } else {
                 return response()->json(['message' => 'Failed to retrieve the token: ' . $response->body()], $response->status());
