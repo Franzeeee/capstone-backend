@@ -4,24 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CompilerController extends Controller
 {
+
     public function getToken()
     {
-        $baseUrl = 'https://api.jdoodle.com/v1';
-        $clientId = '80d7f4c9e24d6d17354e31f6301d1203';
-        $clientSecret = '74d8130f970462b618aba4bdb77a8b07c5c67c35601fd857960a1659129d4556';
+        $baseUrl = 'https://api.jdoodle.com/v1/auth-token';
+        $clientId = env('JDOODLE_CLIENT_ID');
+        $clientSecret = env('JDOODLE_CLIENT_SECRET');
 
-        // Prepare the payload
         $data = [
             'clientId' => $clientId,
             'clientSecret' => $clientSecret
         ];
 
         try {
+            // Log outgoing request for debugging
+            Log::info('Requesting token from JDoodle', $data);
+
             // Send POST request to JDoodle API to get the auth token
-            $response = Http::withHeaders(['Content-Type' => 'application/json'])->post($baseUrl . '/auth-token', $data);
+            $response = Http::withHeaders(['Content-Type' => 'application/json'])->post($baseUrl, $data);
+
+            // Log the response for debugging
+            Log::info('JDoodle API Response: ' . $response->body());
 
             // Check if the response is successful
             if ($response->successful()) {
@@ -36,6 +43,9 @@ class CompilerController extends Controller
                 return response()->json(['message' => 'Failed to retrieve the token: ' . $response->body()], $response->status());
             }
         } catch (\Exception $e) {
+            // Log the exception for further investigation
+            Log::error('Error fetching JDoodle token: ' . $e->getMessage());
+
             return response()->json(['message' => 'An error occurred: ' . $e->getMessage()], 500);
         }
     }
