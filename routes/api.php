@@ -25,8 +25,12 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
+
 Route::post('receiveMessage', [AiController::class, 'index']);
 Route::get('generateAssessment', [AiController::class, 'generateAssessment']);
+Route::post('submission/autocheck', [AiController::class, 'activityAutoCheck']);
+
+
 Route::get('fetchCompilerToken', [CompilerController::class, 'getToken']);
 
 Route::post('class/create', [CourseClassController::class, 'createClass']);

@@ -58,4 +58,40 @@ class AiController extends Controller
             return response('An error occurred.', 500);
         }
     }
+
+    // Check the student's submission via OPENAI
+    public function activityAutoCheck(Request $request)
+    {
+        $validated = $request->validate([
+            'codingProblem' => 'required',
+        ]);
+
+        $codingProblem = $validated['codingProblem'];
+        $code = $request->code;
+
+        $message = "
+            Check the student's submission for the following problem:
+            Problem: $codingProblem
+            Code: $code
+
+            Total Score: points here
+            Feedback: your feedback here
+
+            The points should be between 0 and 10. dont be too harsh on the student.
+        ";
+        try {
+            $result = OpenAI::chat()->create([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    ['role' => 'user', 'content' => $message],
+                ],
+            ]);
+            return response()->json([
+                'message' => $result->choices[0]->message->content
+            ], 200);
+        } catch (\Exception $e) {
+            // Handle the error here
+            return response('An error occurred.', 500);
+        }
+    }
 }
