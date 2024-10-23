@@ -59,6 +59,7 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
+        Log::info('User endpoint hit', ['user' => $request->user()]);
         if (!$request->user()) {
             return response(['message' => 'Unauthenticated'], Response::HTTP_UNAUTHORIZED);
         }
