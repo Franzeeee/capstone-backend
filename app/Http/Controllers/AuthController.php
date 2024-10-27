@@ -52,7 +52,7 @@ class AuthController extends Controller
         $user = $request->user();
         $token = $user->createToken('token')->plainTextToken;
 
-        $cookie = Cookie::make('jwt', $token, 60 * 24, '/', null, true, true, false, 'None');
+        $cookie = Cookie::make('jwt', $token, 60 * 24 * 326, '/', null, true, true, false, 'None');
 
         return response(['message' => $user])->withCookie($cookie);
     }
@@ -76,5 +76,14 @@ class AuthController extends Controller
         return response([
             'message' => 'Successfully logged out'
         ])->withCookie($cookie);
+    }
+
+    public function checkAuth(Request $request)
+    {
+        if ($request->user()) {
+            return response()->json(true);
+        }
+
+        return response()->json(false);
     }
 }

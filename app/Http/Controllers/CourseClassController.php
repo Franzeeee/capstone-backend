@@ -9,6 +9,7 @@ use App\Models\ClassCodes;
 use App\Models\User;
 use App\Models\StudentProgress;
 use Illuminate\Support\Str;
+use Database\Seeders\PythonAssessmentSeeder; // Adjust the namespace as necessary
 
 class CourseClassController extends Controller
 {
@@ -72,6 +73,11 @@ class CourseClassController extends Controller
             'class_id' => $courseClass->id,  // Associate the class code with the class
             'code' => $classCode,  // Store the generated class code
         ]);
+
+        if ($request->subject === 'Python') {
+            $seeder = new PythonAssessmentSeeder();
+            $seeder->run($courseClass->id, $request->teacher_id);
+        }
 
         return response()->json([
             'message' => 'Course Class created successfully!',
@@ -170,5 +176,22 @@ class CourseClassController extends Controller
 
         // Return the class information with a 200 status code
         return response()->json($courseClass, 200);
+    }
+
+    public function deleteClass($classId)
+    {
+        // Find the class by the class ID
+        $courseClass = CourseClass::find($classId);
+
+        // If the class does not exist, return a 404 error
+        if (!$courseClass) {
+            return response()->json(['message' => 'Class not found'], 404);
+        }
+
+        // Delete the class
+        $courseClass->delete();
+
+        // Return a success message
+        return response()->json(['message' => 'Class deleted successfully'], 200);
     }
 }

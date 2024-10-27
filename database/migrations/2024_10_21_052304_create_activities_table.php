@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('course_class_id')->constrained()->onDelete('cascade'); // Foreign key to CourseClass
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Foreign key to User (the creator)
+            $table->string('python-default')->nullable(); // Type of the activity
             $table->string('title'); // Title of the activity
             $table->text('description'); // Description of the activity
             $table->boolean('final_assessment')->default(false); // Indicator for final assessment
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->integer('time_limit')->nullable(); // Time limit for the activity
             $table->integer('point')->default(0); // Points for the activity
             $table->dateTime('start_date'); // Start date of the activity
-            $table->dateTime('end_date'); // End date of the activity
+            $table->dateTime('end_date')->nullable(); // End date of the activity
             $table->timestamps(); // Created at and updated at timestamps
         });
     }
