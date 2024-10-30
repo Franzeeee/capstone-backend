@@ -18,14 +18,15 @@ class ActivitiesController extends Controller
             'course_class_id' => 'required|exists:course_classes,id',
             'title' => 'required|string',
             'description' => 'required|string',
-            'due_date' => 'required|date',
+            'due_date' => 'nullable|date',
+            'time_limit' => 'nullable|integer|min:1',
+            'points' => 'required|integer|min:1|max:100',
             'coding_problems' => 'required|array',
             'coding_problems.*.title' => 'required|string',
             'coding_problems.*.description' => 'required|string',
             'coding_problems.*.sample_input' => 'nullable|string',
 
             'coding_problems.*.expected_output' => 'required|string',
-            'coding_problems.*.points' => 'required|integer|min:1|max:100',
         ]);
 
         // Start a database transaction
@@ -38,7 +39,7 @@ class ActivitiesController extends Controller
                 'description' => $validated['description'],
                 'final_assessment' => false,
                 'manual_checking' => false,
-                'time_limit' => null,
+                'time_limit' => $validated['time_limit'] || null,
                 'point' => array_sum(array_column($validated['coding_problems'], 'points')),
                 'start_date' => now(),
                 'end_date' => $validated['due_date'],

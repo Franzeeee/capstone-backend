@@ -35,6 +35,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('authUser', [AuthController::class, 'checkAuth']);
 
     Route::post('/upload/profile-picture', [ProfileController::class, 'uploadProfilePicture']);
+    Route::get('/profile/picture/fetch', [ProfileController::class, 'fetchProfilePicture']);
+    Route::post('/update/basic-info', [ProfileController::class, 'updateBasicInfo']);
+    Route::post('/update/contact-info', [ProfileController::class, 'updateContactInfo']);
+    Route::post('/update/password', [ProfileController::class, 'updatePassword']);
+
 
 
     Route::post('receiveMessage', [AiController::class, 'index']);

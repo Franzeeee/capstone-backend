@@ -111,4 +111,12 @@ class AnnouncementController extends Controller
 
         return response()->json($transformedAnnouncements);
     }
+
+    public function deleteAnnouncement($id)
+    {
+        $announcement = Announcement::findOrFail($id);
+        $announcement->delete();
+
+        return response()->json(['message' => 'Announcement deleted successfully']);
+    }
 }

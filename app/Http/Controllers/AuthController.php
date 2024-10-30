@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +46,7 @@ class AuthController extends Controller
 
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response([
-                'message' => "Invalid Credintials!"
+                'message' => "Invalid Credentials!"
             ], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -59,12 +60,29 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
-        Log::info('User endpoint hit', ['user' => $request->user()]);
+        // Check if the user is authenticated
         if (!$request->user()) {
             return response(['message' => 'Unauthenticated'], Response::HTTP_UNAUTHORIZED);
         }
-        return Auth::user();
+
+        // Get the authenticated user and load the user profile
+        $user = User::with('profile')->find(Auth::id());
+
+        $profile_pictore = $user->profile ? asset('storage/' . $user->profile->profile_path) : null;
+
+        // Prepare the response object combining user data and profile picture
+        $response = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'role' => $user->role,
+            'test' => "this is a test"
+        ];
+
+        return response()->json($response);
     }
+
 
     public function logout(Request $request)
     {
