@@ -9,6 +9,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\StudentProgressController;
 use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubmissionController;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -63,10 +64,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/activities/{id}/basic', [ActivitiesController::class, 'getCodingActivity']);
     Route::get('/activities/{id}/coding', [ActivitiesController::class, 'fetchActivityWithoutProblems']);
+    Route::get('/activity/{id}/auth', [ActivitiesController::class, 'checkActivityAuth']);
+
+    Route::post('submission/create', [SubmissionController::class, 'store']);
+    Route::get('/submission/{activityId}/{userId}', [SubmissionController::class, 'fetchSubmission']);
+    Route::get('/submission/all', [SubmissionController::class, 'all']);
 
 
     Route::post('announcement', [AnnouncementController::class, 'store']);
     Route::get('announcement/fetch', [AnnouncementController::class, 'fetchAllAnnouncements']);
+    Route::get('announcement/delete/{id}', [AnnouncementController::class, 'deleteAnnouncement']);
 
 
     Route::get('student/progress', [StudentProgressController::class, 'index']);

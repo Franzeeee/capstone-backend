@@ -194,4 +194,23 @@ class CourseClassController extends Controller
         // Return a success message
         return response()->json(['message' => 'Class deleted successfully'], 200);
     }
+
+    public function verifyCode(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'code' => 'required|string|exists:class_codes,code', // Ensure the code exists in the class_codes table
+        ]);
+
+        // Fetch the class code
+        $classCode = ClassCodes::where('code', $request->code)->first();
+
+        // If the class code does not exist, return a 404 error
+        if (!$classCode) {
+            return response()->json(['message' => 'Class code not found'], 404);
+        }
+
+        // Return the class code information
+        return response()->json($classCode, 200);
+    }
 }

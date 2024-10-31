@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('submission_id')->constrained()->onDelete('cascade'); // Foreign key to the submissions table
             $table->foreignId('problem_id')->constrained('coding_problems')->onDelete('cascade'); // Foreign key to coding problems
-            $table->text('code');
+            $table->text('code')->nullable();
             $table->integer('score')->default(0);
             $table->timestamps();
         });

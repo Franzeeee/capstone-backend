@@ -45,7 +45,7 @@ class AiController extends Controller
         ";
         try {
             $result = OpenAI::chat()->create([
-                'model' => 'gpt-3.5-turbo',
+                'model' => 'gpt-4',
                 'messages' => [
                     ['role' => 'user', 'content' => $message],
                 ],
@@ -72,16 +72,19 @@ class AiController extends Controller
         $message = "
             Check the student's submission for the following problem:
             Problem: $codingProblem
+            --------------------------------
             Code: $code
 
             Total Score: points here
             Feedback: your feedback here
 
-            The points should be between 0 and 10. dont be too harsh on the student.
+            The points should be between 0 and 100. dont be too harsh on the student. Zero if no code. Ignore the \n because it is just the code editor formatting. Also,
+            note that they cant resubmit. If no code is submitted then the score should be 0 and feedback is tell them to practice more on the lesson. 0 if no code is submitted.
+            Give them feedback on what they did wrong and how they can improve. the - is for separating codingProblem and the code of the student.
         ";
         try {
             $result = OpenAI::chat()->create([
-                'model' => 'gpt-3.5-turbo',
+                'model' => 'gpt-3.5-turbo-0125',
                 'messages' => [
                     ['role' => 'user', 'content' => $message],
                 ],

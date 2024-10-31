@@ -131,4 +131,17 @@ class ActivitiesController extends Controller
             'activity' => $activity
         ]);
     }
+
+    public function checkActivityAuth($id)
+    {
+        // Fetch the activity with the given ID
+        $activity = Activity::with('codingProblems')->find($id);
+
+        // Check if the activity is found and belongs to the authenticated user
+        if (!$activity) {
+            return response()->json(['result' => null], 404);
+        }
+
+        return response()->json($activity, 200);
+    }
 }
