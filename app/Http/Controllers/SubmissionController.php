@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use Illuminate\Http\Request;
 
 use App\Models\CodingProblemSubmission;
+use App\Models\StudentProgress;
 use App\Models\Submission;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +45,6 @@ class SubmissionController extends Controller
             'status' => $validated['status'] ?? 'pending',
         ]);
 
-
         // Store each coding problem submission
         foreach ($validated['coding_problem_codes'] as $codingProblem) {
             CodingProblemSubmission::create([
@@ -54,6 +55,7 @@ class SubmissionController extends Controller
             ]);
         }
 
+
         // Fetch all submissions for the same activity
         $submissions = Submission::where('activity_id', $validated['activity_id'])
             ->orderBy('score', 'desc')
@@ -63,6 +65,18 @@ class SubmissionController extends Controller
         $rank = $submissions->search(function ($sub) use ($submission) {
             return $sub->id === $submission->id;
         }) + 1; // Adding 1 to convert index to rank
+
+
+        // Fetch the lesson id
+        $lesson_id = Activity::find($validated['activity_id'])->lessonId;
+
+        $studentProgress = StudentProgress::where('student_id', Auth::id())->first();
+        if ($studentProgress) {
+            $studentProgress->update([
+                'last_completed_quiz' => $validated['activity_id'],
+                'last_completed_lesson' => $lesson_id,
+            ]);
+        }
 
         return response()->json([
             'submission' => $submission,

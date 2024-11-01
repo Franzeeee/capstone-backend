@@ -43,8 +43,8 @@ class CourseClassController extends Controller
                 'room' => 'required|string|max:255',
                 'subject' => 'required|string|max:255',
                 'section' => 'required|string|max:255',
-                'startDate' => 'required|date',
-                'endDate' => 'required|date|after:start_date',
+                'startDate' => 'nullable|date',
+                'endDate' => 'nullable|date|after:start_date',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([

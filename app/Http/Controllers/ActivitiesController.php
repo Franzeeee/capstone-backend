@@ -62,6 +62,7 @@ class ActivitiesController extends Controller
             CodingProblem::insert($codingProblemsData);
         });
 
+
         return response()->json(['message' => 'Activity created successfully!'], 201);
     }
 
