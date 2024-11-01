@@ -14,6 +14,8 @@ class Activity extends Model
         'user_id',
         'title',
         'description',
+        'default',
+        'lessonId',
         'final_assessment',
         'manual_checking',
         'time_limit',

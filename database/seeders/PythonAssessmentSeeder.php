@@ -21,9 +21,10 @@ class PythonAssessmentSeeder extends Seeder
             [
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
-                'python-defualt' => 'assessment1',
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'defualt' => true,
+                'lessonId' => 0,
+                'title' => 'Variables Lesson Assesment',
+                'description' => 'Basic assessment for variables lesson.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -47,6 +48,8 @@ class PythonAssessmentSeeder extends Seeder
                 'user_id' => $userId,
                 'title' => $activityData['title'],
                 'description' => $activityData['description'],
+                'default' => true,
+                'lessonId' => $activityData['lessonId'],
                 'final_assessment' => false,
                 'manual_checking' => false,
                 'start_date' => now(),
