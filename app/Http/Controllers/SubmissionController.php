@@ -127,10 +127,14 @@ class SubmissionController extends Controller
                 return $sub->id === $submission->id;
             }) + 1; // Adding 1 to convert index to rank
 
+            // Get the total number of submissions
+            $totalSubmissions = $submissions->count();
+
             return response()->json([
                 'exists' => true,
                 'data' => $submission,
                 'rank' => $rank,
+                'total_submissions' => $totalSubmissions,
             ], 200);
         } else {
             return response()->json(['exists' => false, 'data' => null], 200);
