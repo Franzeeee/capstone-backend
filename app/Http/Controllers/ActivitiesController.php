@@ -69,11 +69,12 @@ class ActivitiesController extends Controller
     {
         // Fetch activities for the specific course class
         $activities = Activity::where('course_class_id', $classId)
+            ->where('default', false)
             ->get();
 
         // Check if activities are found
         if ($activities->isEmpty()) {
-            return response()->json(['message' => 'No activities found for this class.'], 404);
+            return response()->json(['message' => 'No activities found for this class.'], 200);
         }
 
         return response()->json($activities, 200);
@@ -143,5 +144,20 @@ class ActivitiesController extends Controller
         }
 
         return response()->json($activity, 200);
+    }
+
+    public function fetchDefaultActivities($classId)
+    {
+        // Fetch default activities for the specific course class
+        $activities = Activity::where('course_class_id', $classId)
+            ->where('default', true)
+            ->get();
+
+        // Check if activities are found
+        if ($activities->isEmpty()) {
+            return response()->json(['message' => 'No default activities found for this class.'], 404);
+        }
+
+        return response()->json($activities, 200);
     }
 }
