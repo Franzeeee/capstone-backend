@@ -21,19 +21,41 @@ class PythonAssessmentSeeder extends Seeder
             [
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
-                'defualt' => true,
+                'default' => true,
                 'lessonId' => 0,
-                'title' => 'Variables Lesson Assesment',
-                'description' => 'Basic assessment for variables lesson.',
+                'title' => 'Python Basics Assessment',
+                'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
                 'coding_problems' => [
                     [
-                        'title' => 'Commenting',
-                        'description' => 'Write a line that says print("Hello, World!"). \n Add a comment above the line that says "This line prints Hello, World!".',
-                        'sample_input' => null,
-                        'expected_output' => 'Hello, World!',
+                        'title' => 'Name and Age Together',
+                        'description' => 'Create variables for name and age, then print them in one sentence.',
+                        'sample_input' => 'name = "John", age = 20',
+                        'expected_output' => '"My name is John and I am 20 years old"',
+                    ]
+                ],
+            ],
+            [
+                'course_class_id' => $courseClassId,
+                'user_id' => $userId,
+                'default' => true,
+                'lessonId' => 1,
+                'title' => 'Python Basics Assessment',
+                'description' => 'Basic assessment to test Python fundamentals.',
+                'due_date' => null, // Open-ended by default
+                'points' => 100,
+                'time_limit' => 1800, // 30 minutes
+                'coding_problems' => [
+                    [
+                        'title' => 'Calculator Program',
+                        'description' => 'Create a simple calculator that takes two numbers and prints their sum, difference, product, and quotient.',
+                        'sample_input' => 'num1 = 10, num2 = 2',
+                        'expected_output' => 'Sum: 12\n
+Difference: 8\n
+Product: 20\n
+Quotient: 5.0',
                     ]
                 ],
             ],
