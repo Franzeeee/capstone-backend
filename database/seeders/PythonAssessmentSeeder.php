@@ -175,24 +175,6 @@ the string is in lowercase: True',
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
-                'due_date' => null, // Open-ended by default
-                'points' => 100,
-                'time_limit' => 1800, // 30 minutes
-                'coding_problems' => [
-                    [
-                        'title' => null,
-                        'description' =>null,
-                        'sample_input' => null,
-                        'expected_output' => null,
-                    ]
-                ],
-            ],
-            [
-                'course_class_id' => $courseClassId,
-                'user_id' => $userId,
-                'default' => true,
                 'lessonId' => 8,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
@@ -282,24 +264,6 @@ Better to stay inside.',
                         'description' => 'Determine if an individual is eligible for a fitness membership based on age and commitment level.',
                         'sample_input' => 'age = 24, commitment_level = "high"',
                         'expected_output' => 'You are eligible for a fitness membership.',
-                    ]
-                ],
-            ],
-            [
-                'course_class_id' => $courseClassId,
-                'user_id' => $userId,
-                'default' => true,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
-                'due_date' => null, // Open-ended by default
-                'points' => 100,
-                'time_limit' => 1800, // 30 minutes
-                'coding_problems' => [
-                    [
-                        'title' =>null,
-                        'description' => null,
-                        'sample_input' => null,
-                        'expected_output' => null,
                     ]
                 ],
             ],
@@ -449,24 +413,6 @@ Maximum value: 12',
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
-                'due_date' => null, // Open-ended by default
-                'points' => 100,
-                'time_limit' => 1800, // 30 minutes
-                'coding_problems' => [
-                    [
-                        'title' =>null,
-                        'description' => null,
-                        'sample_input' => null,
-                        'expected_output' => null,
-                    ]
-                ],
-            ],
-            [
-                'course_class_id' => $courseClassId,
-                'user_id' => $userId,
-                'default' => true,
                 'lessonId' => 22,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
@@ -481,24 +427,6 @@ Maximum value: 12',
                         'expected_output' => 'Squared numbers: [1, 4, 9, 16, 25]\n
 Even numbers: [2, 4]\n
 Sorted tuples: [(1, "one"), (3, "three"), (2, "two")]',
-                    ]
-                ],
-            ],
-            [
-                'course_class_id' => $courseClassId,
-                'user_id' => $userId,
-                'default' => true,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
-                'due_date' => null, // Open-ended by default
-                'points' => 100,
-                'time_limit' => 1800, // 30 minutes
-                'coding_problems' => [
-                    [
-                        'title' =>null,
-                        'description' => null,
-                        'sample_input' => null,
-                        'expected_output' => null,
                     ]
                 ],
             ],
