@@ -31,6 +31,9 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 
 
+Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);
+
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [AuthController::class, 'user']);
@@ -67,6 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/activities/{id}/basic', [ActivitiesController::class, 'getCodingActivity']);
     Route::get('/activities/{id}/coding', [ActivitiesController::class, 'fetchActivityWithoutProblems']);
     Route::get('/activity/{id}/auth', [ActivitiesController::class, 'checkActivityAuth']);
+    Route::get('/activity/default/{classId}', [ActivitiesController::class, 'fetchDefaultActivities']);
 
     Route::post('submission/create', [SubmissionController::class, 'store']);
     Route::get('/submission/{activityId}/{userId}', [SubmissionController::class, 'fetchSubmission']);
@@ -80,5 +84,3 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('student/progress', [StudentProgressController::class, 'index']);
 });
-
-Route::get('/activity/default/{classId}', [ActivitiesController::class, 'fetchDefaultActivities']);

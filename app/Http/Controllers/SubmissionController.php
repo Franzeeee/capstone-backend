@@ -10,6 +10,7 @@ use App\Models\StudentProgress;
 use App\Models\Submission;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SubmissionController extends Controller
 {
@@ -158,6 +159,25 @@ class SubmissionController extends Controller
     public function all()
     {
         $submissions = Submission::all();
+
+        return response()->json($submissions, 200);
+    }
+
+    public function fetchSubmissionRanking($activityId)
+    {
+        $submissions = DB::table('submissions')
+            ->join('users', 'submissions.student_id', '=', 'users.id') // Join with the users table using student_id
+            ->join('profiles', 'users.id', '=', 'profiles.user_id') // Join with the profiles table using user_id
+            ->where('submissions.activity_id', $activityId)
+            ->select('submissions.*', 'users.name', 'users.email', DB::raw("CONCAT('/storage/', profiles.profile_path) as profile_path")) // Include the user and profile columns you need
+            ->orderBy('submissions.score', 'desc')
+            ->orderBy('submissions.created_at', 'asc')
+            ->get();
+
+        $submissions->transform(function ($submission) {
+            $submission->profile_path = asset($submission->profile_path);
+            return $submission;
+        });
 
         return response()->json($submissions, 200);
     }
