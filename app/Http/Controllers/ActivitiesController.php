@@ -40,7 +40,7 @@ class ActivitiesController extends Controller
                 'final_assessment' => false,
                 'manual_checking' => false,
                 'time_limit' => $validated['time_limit'] || null,
-                'point' => array_sum(array_column($validated['coding_problems'], 'points')),
+                'point' => 100,
                 'start_date' => now(),
                 'end_date' => $validated['due_date'],
             ]);
