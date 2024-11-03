@@ -71,12 +71,15 @@ class SubmissionController extends Controller
         // Fetch the lesson id
         $lesson_id = Activity::find($validated['activity_id'])->lessonId;
 
-        $studentProgress = StudentProgress::where('student_id', Auth::id())->first();
-        if ($studentProgress) {
-            $studentProgress->update([
-                'last_completed_quiz' => $validated['activity_id'],
-                'last_completed_lesson' => $lesson_id,
-            ]);
+        $activity = Activity::find($validated['activity_id']);
+        if ($activity && $activity->default) {
+            $studentProgress = StudentProgress::where('student_id', Auth::id())->first();
+            if ($studentProgress) {
+                $studentProgress->update([
+                    'last_completed_quiz' => $validated['activity_id'],
+                    'last_completed_lesson' => $lesson_id,
+                ]);
+            }
         }
 
         return response()->json([

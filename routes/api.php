@@ -70,7 +70,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/activities/{id}/coding', [ActivitiesController::class, 'fetchActivityWithoutProblems']);
     Route::get('/activity/{id}/auth', [ActivitiesController::class, 'checkActivityAuth']);
     Route::get('/activity/default/{classId}', [ActivitiesController::class, 'fetchDefaultActivities']);
-    Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);
     Route::get('activity/{classId}/fetch', [ActivitiesController::class, 'fetchGetPaginatedActivities']);
 
 
@@ -88,3 +87,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('student/progress', [StudentProgressController::class, 'index']);
 });
+
+Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);

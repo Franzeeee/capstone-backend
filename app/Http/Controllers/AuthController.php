@@ -16,8 +16,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        Log::info("Phone: " . $request->phone);
-        Log::info("Phone: " . $request->role);
+
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email',
@@ -33,6 +32,11 @@ class AuthController extends Controller
             'role' => $validated['role'],
             'password' => Hash::make($validated['password'])
         ]);
+
+        $profile = new Profile();
+        $profile->user_id = $user->id;
+        $profile->profile_path = 'profile_pictures/default.png';
+        $profile->save();
 
         return response()->json(["message" => "Registration"]);
     }
