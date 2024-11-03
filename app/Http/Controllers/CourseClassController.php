@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\StudentProgress;
 use Illuminate\Support\Str;
 use Database\Seeders\PythonAssessmentSeeder; // Adjust the namespace as necessary
+use Illuminate\Support\Facades\Auth;
 
 class CourseClassController extends Controller
 {
@@ -30,7 +31,21 @@ class CourseClassController extends Controller
         // Return the classes as a JSON response
         return response()->json($classes);
     }
-    //
+
+    public function allClasses()
+    {
+        // Fetch classes associated with the specified teacher_id
+        $classes = CourseClass::where('teacher_id', Auth::id())
+            ->with(['classCode'])
+            ->withCount('students') // Efficiently count students
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Return the classes as a JSON response
+        return response()->json($classes, 200);
+    }
+
+
     public function createClass(Request $request)
     {
 

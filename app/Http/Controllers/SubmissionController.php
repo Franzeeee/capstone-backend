@@ -181,4 +181,29 @@ class SubmissionController extends Controller
 
         return response()->json($submissions, 200);
     }
+
+    public function fetchAllActivitySubmission(Request $request, $id)
+    {
+
+        $perPage = $request->input('per_page', 10); // Default to 10 per page if not specified
+        $submissions = Submission::where('activity_id', $id)
+            ->join('users', 'submissions.student_id', '=', 'users.id') // Join with the users table using student_id
+            ->join('profiles', 'users.id', '=', 'profiles.user_id') // Join with the profiles table using user_id
+            ->select('submissions.*', 'users.name', 'users.email', DB::raw("CONCAT('/storage/', profiles.profile_path) as profile_path")) // Include the user and profile columns you need
+            ->paginate($perPage);
+
+        $submissions->transform(function ($submission) {
+            $submission->profile_path = asset($submission->profile_path);
+            return $submission;
+        });
+
+        return response()->json($submissions, 200);
+    }
+
+    public function deleteSubmission($id)
+    {
+        Submission::destroy($id);
+
+        return response()->json(['message' => 'Submission deleted successfully.'], 200);
+    }
 }

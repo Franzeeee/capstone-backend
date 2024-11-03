@@ -11,6 +11,7 @@ use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionController;
 use App\Models\Profile;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -28,11 +29,6 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
-
-
-
-Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);
-
 
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -59,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('class/{classId}/delete', [CourseClassController::class, 'deleteClass']);
 
     Route::get('classes', [CourseClassController::class, 'index']);
+    Route::get('class/all', [CourseClassController::class, 'allClasses']);
     Route::post('class/join', [CourseClassController::class, 'joinClass']);
     Route::get('class/{code}', [CourseClassController::class, 'fetchClassInfo']);
     Route::get('class/{id}/students', [CourseClassController::class, 'fetchClassStudents']);
@@ -66,15 +63,22 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('activity/create', [ActivitiesController::class, 'store']);
     Route::get('activity/{id}/all', [ActivitiesController::class, 'getClassActivities']);
+    Route::get('activity/{id}/delete', [ActivitiesController::class, 'deleteActivity']);
+    Route::put('activity/{id}/update', [ActivitiesController::class, 'updateActivity']);
 
     Route::get('/activities/{id}/basic', [ActivitiesController::class, 'getCodingActivity']);
     Route::get('/activities/{id}/coding', [ActivitiesController::class, 'fetchActivityWithoutProblems']);
     Route::get('/activity/{id}/auth', [ActivitiesController::class, 'checkActivityAuth']);
     Route::get('/activity/default/{classId}', [ActivitiesController::class, 'fetchDefaultActivities']);
+    Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);
+    Route::get('activity/{classId}/fetch', [ActivitiesController::class, 'fetchGetPaginatedActivities']);
+
 
     Route::post('submission/create', [SubmissionController::class, 'store']);
     Route::get('/submission/{activityId}/{userId}', [SubmissionController::class, 'fetchSubmission']);
     Route::get('/submission/all', [SubmissionController::class, 'all']);
+    Route::get('{id}/submissions/all', [SubmissionController::class, 'fetchAllActivitySubmission']);
+    Route::delete('activity/submission/{id}/delete', [SubmissionController::class, 'deleteSubmission']);
 
 
     Route::post('announcement', [AnnouncementController::class, 'store']);
