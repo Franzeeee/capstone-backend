@@ -43,4 +43,8 @@ class Activity extends Model
     {
         return $this->hasMany(CodingProblem::class);
     }
+    public function activityFiles()
+    {
+        return $this->hasMany(ActivityFile::class);
+    }
 }

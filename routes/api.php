@@ -73,6 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('activity/{classId}/fetch', [ActivitiesController::class, 'fetchGetPaginatedActivities']);
 
 
+
     Route::post('submission/create', [SubmissionController::class, 'store']);
     Route::get('/submission/{activityId}/{userId}', [SubmissionController::class, 'fetchSubmission']);
     Route::get('/submission/all', [SubmissionController::class, 'all']);
@@ -89,3 +90,5 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);
+
+Route::post('activity/logic/upload', [ActivitiesController::class, 'createLogicActivity']);

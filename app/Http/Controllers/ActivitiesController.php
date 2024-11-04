@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\CodingProblem;
-
+use App\Models\ActivityFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ActivitiesController extends Controller
 {
@@ -256,5 +258,59 @@ class ActivitiesController extends Controller
         });
 
         return response()->json(['message' => 'Activity updated successfully!'], 200);
+    }
+
+
+
+    // Creating Store Activity for Logic Type
+    public function createLogicActivity(Request $request)
+    {
+
+        Log::info($request->all());
+
+        $validated = $request->validate([
+            'course_class_id' => 'required|exists:course_classes,id',
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'due_date' => 'nullable|date',
+            'files' => 'required|array',
+            'files.*' => 'file|mimes:doc,docx,xlsx,ppt,pptx,jpeg,jpg,png,txt',
+        ]);
+
+
+        // Create the activity
+        $activity = Activity::create([
+            'course_class_id' => $validated['course_class_id'],
+            'user_id' => 1,
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'final_assessment' => false,
+            'manual_checking' => true,
+            'time_limit' => null,
+            'point' => 100,
+            'start_date' => now(),
+            'end_date' => $validated['due_date'],
+        ]);
+
+        $files = $validated['files'];
+
+        foreach ($files as $file) {
+            // Access various properties of the file object
+            $originalName = $file->getClientOriginalName();  // e.g., 'document1.docx'
+            $filePath = $file->store('activity_files', 'public'); // Store the file in the 'public' disk and get the path
+            $fileType = $file->getClientOriginalExtension();  // e.g., 'docx'
+
+            // Now you can create an entry in the ActivityFile model
+            ActivityFile::create([
+                'activity_id' => $activity->id, // Assume this is set in your logic
+                'file_path' => $filePath,
+                'file_type' => $fileType,
+                'file_name' => $originalName,
+            ]);
+        }
+
+
+
+        return response()->json(['message' => 'Activity created successfully!'], 201);
     }
 }
