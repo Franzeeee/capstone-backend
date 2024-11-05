@@ -92,6 +92,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('student/progress', [StudentProgressController::class, 'index']);
 
     Route::post('activity/logic/{activityId}/submit', [SubmissionFileController::class, 'store']);
+    Route::get('activity/logic/{activityId}/check', [SubmissionFileController::class, 'checkSubmission']);
+    Route::delete('activity/logic/{fileId}/delete', [SubmissionFileController::class, 'unSubmitFile']);
+    Route::post('activity/logic/{submissionId}/resubmit', [SubmissionFileController::class, 'updateSubmissionFiles']);
 });
 
 Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);

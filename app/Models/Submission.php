@@ -30,7 +30,7 @@ class Submission extends Model
     {
         return $this->hasMany(CodingProblemSubmission::class);
     }
-    public function submissionFile()
+    public function submissionFiles()
     {
         return $this->hasMany(SubmissionFile::class);
     }
