@@ -8,8 +8,10 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\StudentProgressController;
 use App\Http\Controllers\ActivitiesController;
+use App\Http\Controllers\ActivityFileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionController;
+use App\Models\ActivityFile;
 use App\Models\Profile;
 use App\Models\Submission;
 use Illuminate\Http\Request;
@@ -92,3 +94,4 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);
 
 Route::post('activity/logic/upload', [ActivitiesController::class, 'createLogicActivity']);
+Route::get('activity/logic/{classId}/files', [ActivityFileController::class, 'fetchFiles']);
