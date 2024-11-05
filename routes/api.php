@@ -12,12 +12,8 @@ use App\Http\Controllers\ActivityFileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubmissionFileController;
-use App\Models\ActivityFile;
-use App\Models\Profile;
-use App\Models\Submission;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Symfony\Contracts\Service\Attribute\Required;
+
 
 /*
 |--------------------------------------------------------------------------
