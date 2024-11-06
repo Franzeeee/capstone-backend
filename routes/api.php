@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [AuthController::class, 'user']);
     Route::post('logout', [AuthController::class, 'logout']);
@@ -41,12 +40,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/update/contact-info', [ProfileController::class, 'updateContactInfo']);
     Route::post('/update/password', [ProfileController::class, 'updatePassword']);
 
-
-
     Route::post('receiveMessage', [AiController::class, 'index']);
     Route::get('generateAssessment', [AiController::class, 'generateAssessment']);
     Route::post('submission/autocheck', [AiController::class, 'activityAutoCheck']);
-
 
     Route::get('fetchCompilerToken', [CompilerController::class, 'getToken']);
 
@@ -85,15 +81,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('announcement/delete/{id}', [AnnouncementController::class, 'deleteAnnouncement']);
 
 
-    Route::get('student/progress', [StudentProgressController::class, 'index']);
+    Route::get('student/{classId}/progress', [StudentProgressController::class, 'index']);
 
     Route::post('activity/logic/{activityId}/submit', [SubmissionFileController::class, 'store']);
     Route::get('activity/logic/{activityId}/check', [SubmissionFileController::class, 'checkSubmission']);
     Route::delete('activity/logic/{fileId}/delete', [SubmissionFileController::class, 'unSubmitFile']);
     Route::post('activity/logic/{submissionId}/resubmit', [SubmissionFileController::class, 'updateSubmissionFiles']);
+
+    Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);
+
+    Route::post('activity/logic/upload', [ActivitiesController::class, 'createLogicActivity']);
+    Route::get('activity/logic/{activityId}/files', [ActivityFileController::class, 'fetchFiles']);
 });
-
-Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);
-
-Route::post('activity/logic/upload', [ActivitiesController::class, 'createLogicActivity']);
-Route::get('activity/logic/{activityId}/files', [ActivityFileController::class, 'fetchFiles']);

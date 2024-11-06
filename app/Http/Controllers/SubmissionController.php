@@ -73,7 +73,9 @@ class SubmissionController extends Controller
 
         $activity = Activity::find($validated['activity_id']);
         if ($activity && $activity->default) {
-            $studentProgress = StudentProgress::where('student_id', Auth::id())->first();
+            $studentProgress = StudentProgress::where('student_id', Auth::id())
+                ->where('course_class_id', $activity->course_class_id)
+                ->first();
             if ($studentProgress) {
                 $studentProgress->update([
                     'last_completed_quiz' => $validated['activity_id'],
@@ -172,7 +174,7 @@ class SubmissionController extends Controller
             ->join('users', 'submissions.student_id', '=', 'users.id') // Join with the users table using student_id
             ->join('profiles', 'users.id', '=', 'profiles.user_id') // Join with the profiles table using user_id
             ->where('submissions.activity_id', $activityId)
-            ->select('submissions.*', 'users.name', 'users.email', DB::raw("CONCAT('/storage/', profiles.profile_path) as profile_path")) // Include the user and profile columns you need
+            ->select('submissions.*', 'users.name', 'users.email', DB::raw("CONCAT('https://s3.amazonaws.com/codelabbucket/', profiles.profile_path) as profile_path")) // Include the user and profile columns you need
             ->orderBy('submissions.score', 'desc')
             ->orderBy('submissions.created_at', 'asc')
             ->get();

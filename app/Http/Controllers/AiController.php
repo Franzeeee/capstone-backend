@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\Log;
 
 class AiController extends Controller
 {
@@ -62,6 +63,9 @@ class AiController extends Controller
     // Check the student's submission via OPENAI
     public function activityAutoCheck(Request $request)
     {
+
+        Log::alert($request->input("codingProblem"));
+
         $validated = $request->validate([
             'codingProblem' => 'required',
         ]);

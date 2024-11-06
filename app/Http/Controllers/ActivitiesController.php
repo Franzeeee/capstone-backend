@@ -159,7 +159,7 @@ class ActivitiesController extends Controller
 
         // Check if activities are found
         if ($activities->isEmpty()) {
-            return response()->json(['message' => 'No default activities found for this class.'], 404);
+            return response()->json(['message' => 'No default activities found for this class.'], 200);
         }
 
         return response()->json($activities, 200);

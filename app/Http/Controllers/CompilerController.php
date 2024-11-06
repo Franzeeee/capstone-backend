@@ -21,14 +21,8 @@ class CompilerController extends Controller
         ];
 
         try {
-            // Log outgoing request for debugging
-            Log::info('Requesting token from JDoodle', $data);
-
             // Send POST request to JDoodle API to get the auth token
             $response = Http::withHeaders(['Content-Type' => 'application/json'])->post($baseUrl, $data);
-
-            // Log the response for debugging
-            Log::info('JDoodle API Response: ' . $response->body());
 
             // Check if the response is successful
             if ($response->successful()) {

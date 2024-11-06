@@ -56,4 +56,8 @@ class CourseClass extends Model
     {
         return $this->hasMany(StudentProgress::class, 'course_class_id');
     }
+    public function grades()
+    {
+        return $this->hasMany(Grade::class);
+    }
 }

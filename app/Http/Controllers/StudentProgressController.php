@@ -9,7 +9,7 @@ class StudentProgressController extends Controller
 {
     //
 
-    public function index(Request $request)
+    public function index(Request $request, $classId)
     {
         // Validate the incoming request
         $request->validate([
@@ -18,6 +18,7 @@ class StudentProgressController extends Controller
 
         // Fetch progress associated with the specified student_id
         $progress = StudentProgress::where('student_id', $request->student_id)
+            ->where('course_class_id', $classId)
             ->with('courseClass')
             ->orderBy('created_at', 'desc')
             ->limit(4)
