@@ -51,7 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('fetchCompilerToken', [CompilerController::class, 'getToken']);
 
     Route::post('class/create', [CourseClassController::class, 'createClass']);
-    Route::get('class/{classId}/delete', [CourseClassController::class, 'deleteClass']);
+    Route::delete('class/{classId}/delete', [CourseClassController::class, 'deleteClass']);
 
     Route::get('classes', [CourseClassController::class, 'index']);
     Route::get('class/all', [CourseClassController::class, 'allClasses']);
