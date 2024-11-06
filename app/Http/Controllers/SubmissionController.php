@@ -72,9 +72,10 @@ class SubmissionController extends Controller
         $lesson_id = Activity::find($validated['activity_id'])->lessonId;
 
         $activity = Activity::find($validated['activity_id']);
+        $classCourseId = $activity->courseClass->id;
         if ($activity && $activity->default) {
             $studentProgress = StudentProgress::where('student_id', Auth::id())
-                ->where('course_class_id', $activity->course_class_id)
+                ->where('course_class_id', $classCourseId)
                 ->first();
             if ($studentProgress) {
                 $studentProgress->update([
@@ -87,6 +88,7 @@ class SubmissionController extends Controller
         return response()->json([
             'submission' => $submission,
             'rank' => $rank,
+            'progress' => $studentProgress,
         ], 201);
     }
 
