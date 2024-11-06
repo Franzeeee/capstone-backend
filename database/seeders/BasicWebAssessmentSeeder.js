@@ -1,4 +1,4 @@
-[
+const webAssessment = [ 
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,

@@ -9,7 +9,8 @@ use App\Models\ClassCodes;
 use App\Models\User;
 use App\Models\StudentProgress;
 use Illuminate\Support\Str;
-use Database\Seeders\PythonAssessmentSeeder; // Adjust the namespace as necessary
+use Database\Seeders\PythonAssessmentSeeder;
+use Database\Seeders\WebAssessmentSeeder;
 use Illuminate\Support\Facades\Auth;
 
 class CourseClassController extends Controller
@@ -91,6 +92,9 @@ class CourseClassController extends Controller
 
         if ($request->subject === 'Python') {
             $seeder = new PythonAssessmentSeeder();
+            $seeder->run($courseClass->id, $request->teacher_id);
+        } else {
+            $seeder = new WebAssessmentSeeder();
             $seeder->run($courseClass->id, $request->teacher_id);
         }
 
