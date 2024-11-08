@@ -20,7 +20,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 4,
                 'title' => 'HTML Paragraphs',
                 'description' => 'This activity will test your knowledge of HTML Paragraphs.',
                 'due_date' => null, // Open-ended by default
@@ -50,8 +50,8 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
+                'lessonId' => 5,
+                'title' => 'HTML Paragraph with Inline Styles',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
@@ -86,7 +86,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 6,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -122,7 +122,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 7,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -160,7 +160,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 8,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -198,7 +198,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 9,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -245,7 +245,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 10,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -280,7 +280,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 11,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -320,7 +320,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 12,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -355,7 +355,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 13,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -406,7 +406,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 14,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -453,7 +453,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 15,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -505,7 +505,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 16,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -550,7 +550,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 17,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -604,7 +604,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 18,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -653,7 +653,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 19,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -692,7 +692,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 20,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -732,7 +732,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 25,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -772,7 +772,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 26,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -819,7 +819,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 27,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -870,7 +870,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 28,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -915,7 +915,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 29,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -963,7 +963,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 30,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1011,7 +1011,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 31,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1057,7 +1057,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 32,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1106,7 +1106,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 33,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1156,7 +1156,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 34,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1204,7 +1204,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 35,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1250,7 +1250,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 36,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1299,7 +1299,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 37,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1318,7 +1318,7 @@ class WebAssessmentSeeder extends Seeder
                         'sample_input' => '',
                         'expected_output' => '<!DOCTYPE html>
                         <html lang="en">
-                        <head>
+                        <head>3
                             <meta charset="UTF-8">
                             <meta name="viewport" content="width=device-width, initial-scale=1.0">
                             <title>CSS Links Example</title>
@@ -1345,7 +1345,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 38,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1408,7 +1408,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 39,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1481,7 +1481,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 40,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1542,7 +1542,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 41,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1621,7 +1621,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 42,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1685,7 +1685,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 43,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
@@ -1739,7 +1739,7 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 44,
                 'title' => 'Python Basics Assessment',
                 'description' => 'Basic assessment to test Python fundamentals.',
                 'due_date' => null, // Open-ended by default
