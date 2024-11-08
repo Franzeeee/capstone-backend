@@ -232,4 +232,35 @@ class CourseClassController extends Controller
         // Return the class code information
         return response()->json($classCode, 200);
     }
+
+    public function removeStudent(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'class_id' => 'required|exists:course_classes,id', // Ensure the class_id exists in the course_classes table
+            'student_id' => 'required|exists:users,id', // Ensure the student_id exists in the users table
+        ]);
+
+        // Find the class by the class ID
+        $courseClass = CourseClass::find($request->class_id);
+
+        // If the class does not exist, return a 404 error
+        if (!$courseClass) {
+            return response()->json(['message' => 'Class not found'], 404);
+        }
+
+        // Find the student by the student ID
+        $student = User::find($request->student_id);
+
+        // If the student does not exist, return a 404 error
+        if (!$student) {
+            return response()->json(['message' => 'Student not found'], 404);
+        }
+
+        // Detach the student from the class
+        $courseClass->students()->detach($student->id);
+
+        // Return a success message
+        return response()->json(['message' => 'Student removed from class'], 200);
+    }
 }

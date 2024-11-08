@@ -29,7 +29,6 @@ class TestMail extends Mailable
     {
         return new Envelope(
             subject: 'Test Mail',
-            from: 'codelab@gmail.com',
             to: $this->recipientEmail,
         );
     }

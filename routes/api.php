@@ -55,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('class/{code}', [CourseClassController::class, 'fetchClassInfo']);
     Route::get('class/{id}/students', [CourseClassController::class, 'fetchClassStudents']);
     Route::get('student/{id}/classes', [StudentController::class, 'fetchStudentClasses']);
+    Route::post('/student/remove', [CourseClassController::class, 'removeStudent']);
 
     Route::post('activity/create', [ActivitiesController::class, 'store']);
     Route::get('activity/{id}/all', [ActivitiesController::class, 'getClassActivities']);

@@ -23,7 +23,7 @@ Route::get('/send-mail', function () {
     return 'Success: Email queued.';
 });
 
-Route::get('/test-send', function () {
-    Mail::to('diazfranzpeter@gmail.com')->send(new TestMail('diazfranzpeter@gmail.com'));
+Route::get(`/test-send/{email}`, function ($email) {
+    Mail::to($email)->send(new TestMail($email));
     return 'Success: Email queued.';
 });
