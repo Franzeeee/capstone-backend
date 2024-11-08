@@ -38,8 +38,23 @@ class AuthController extends Controller
         $profile->profile_path = 'profile_pictures/default.png';
         $profile->save();
 
+        $user->sendEmailVerificationNotification();
+
         return response()->json(["message" => "Registration"]);
     }
+
+    public function verify(Request $request)
+    {
+        $user = User::findOrFail($request->route('id'));
+
+        if ($user->hasVerifiedEmail()) {
+            return response()->json(['message' => 'Email already verified.']);
+        }
+
+        $user->markEmailAsVerified();
+        return redirect()->to('https://example.com');
+    }
+
 
     public function login(Request $request)
     {

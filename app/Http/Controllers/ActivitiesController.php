@@ -312,6 +312,23 @@ class ActivitiesController extends Controller
 
         return response()->json(['message' => 'Activity created successfully!'], 201);
     }
+
+    public function fetchStudentEnrolled(Request $request)
+    {
+        // Fetch the activity with the given ID
+        $activity = Activity::find($request->activity_id);
+
+        // Check if the activity is found
+        if (!$activity) {
+            return response()->json(['message' => 'Activity not found.'], 404);
+        }
+
+        // Fetch all students enrolled in the course class
+        $students = $activity->courseClass->students;
+
+
+        return response()->json(['activity' => $activity, 'class' => $activity->courseClass, 'student' => $students], 200);
+    }
 }
 
 

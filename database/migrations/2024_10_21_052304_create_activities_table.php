@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('point')->default(0); // Points for the activity
             $table->dateTime('start_date'); // Start date of the activity
             $table->dateTime('end_date')->nullable(); // End date of the activity
+            $table->boolean('dueReminder')->default(false); // Indicator for due reminder
             $table->timestamps(); // Created at and updated at timestamps
         });
     }
