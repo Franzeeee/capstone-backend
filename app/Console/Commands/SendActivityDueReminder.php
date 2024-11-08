@@ -35,18 +35,22 @@ class SendActivityDueReminder extends Command
     public function handle()
     {
 
-        $now = Carbon::now('Asia/Manila');
+        $now = Carbon::now('Asia/Manila'); // Get current time in Manila timezone
         $formattedNow = $now->format('Y-m-d H:i:s');
         $formattedEndDate = $now->copy()->addHours(24)->format('Y-m-d H:i:s');
 
+        // Add a tolerance of 1 minute before and after the 24-hour mark
+        $toleranceStart = Carbon::parse($formattedEndDate)->subMinutes(1)->format('Y-m-d H:i:s'); // 1 minute before 24 hours
+        $toleranceEnd = Carbon::parse($formattedEndDate)->addMinutes(1)->format('Y-m-d H:i:s'); // 1 minute after 24 hours
 
         $this->info('Checked for activities due in the next 24 hours.');
 
-        // Fetch activities within the next 24 hours
-        $activities = Activity::where('end_date', '>=', $formattedNow)
-            ->where('end_date', '<=', $formattedEndDate)
+        // Fetch activities that are within the tolerance window (exactly 24 hours +/- 1 minute)
+        $activities = Activity::where('end_date', '>=', $toleranceStart)
+            ->where('end_date', '<=', $toleranceEnd)
             ->where('dueReminder', false)
             ->get();
+
 
         // Log the count of activities found
         Log::info('Found ' . $activities->count() . ' activities due in the next 24 hours.');
@@ -68,10 +72,5 @@ class SendActivityDueReminder extends Command
             $activity->update(['dueReminder' => true]);
             $this->info('Activity due reminders sent successfully!');
         }
-
-
-        // Log::info('Sending reminder email to user01@gmail.com');
-        // Mail::to('user01@gmail.com')->queue(new DueActivityReminderMail('user01@gmail.com'));
-        // Log::info('Email queued successfully.');
     }
 }
