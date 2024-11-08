@@ -20,6 +20,7 @@ class Activity extends Model
         'manual_checking',
         'time_limit',
         'point',
+        'dueReminder',
         'start_date',
         'end_date',
     ];

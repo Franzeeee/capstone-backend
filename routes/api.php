@@ -30,6 +30,9 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/verify-email/{id}', [AuthController::class, 'verify'])->name('verification.verify');
+
     Route::get('user', [AuthController::class, 'user']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('authUser', [AuthController::class, 'checkAuth']);
