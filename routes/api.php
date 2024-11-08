@@ -29,8 +29,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
-Route::post('fetchEmail', [ActivitiesController::class, 'fetchStudentEnrolled']);
-
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/verify-email/{id}', [AuthController::class, 'verify'])->name('verification.verify');
