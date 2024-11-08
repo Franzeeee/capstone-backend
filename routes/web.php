@@ -19,7 +19,7 @@ use App\Mail\TestMail;
 Route::get('/', [AiController::class, 'getToken']);
 
 Route::get('/send-mail', function () {
-    Mail::to('diazfranzpeter@gmail.com')->queue(new DueActivityReminderMail('user01@gmail.com'));
+    Mail::to('diazfranzpeter@gmail.com')->queue(new DueActivityReminderMail('diazfranzpeter@gmail.com'));
     return 'Success: Email queued.';
 });
 
