@@ -242,7 +242,6 @@ class SubmissionController extends Controller
             if ($feedback) {
                 $feedback->update([
                     'feedback' => $validated['feedback'],
-                    Log::info($validated['feedback']),
                 ]);
             } else {
                 SubmissionFeedback::create([
