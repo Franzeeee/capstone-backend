@@ -79,6 +79,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('{id}/submissions/all', [SubmissionController::class, 'fetchAllActivitySubmission']);
     Route::delete('activity/submission/{id}/delete', [SubmissionController::class, 'deleteSubmission']);
 
+    Route::post('submission/update', [SubmissionController::class, 'updateCodingSubmission']);
+
 
     Route::post('announcement', [AnnouncementController::class, 'store']);
     Route::get('announcement/fetch', [AnnouncementController::class, 'fetchAllAnnouncements']);
