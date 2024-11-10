@@ -106,3 +106,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('grades/{classId}/fetch', [GradeController::class, 'fetchAllStudentGrade']);
 });
+Route::get('/grades/{classId}/student/{studentId}/scores', [ActivitiesController::class, 'fetchAllActivityWithStudentSubmission']);
