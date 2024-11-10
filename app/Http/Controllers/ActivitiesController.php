@@ -312,6 +312,36 @@ class ActivitiesController extends Controller
 
         return response()->json(['message' => 'Activity created successfully!'], 201);
     }
+    public function fetchAllActivityWithStudentSubmission($classId, $studentId)
+    {
+
+        $activities = DB::table('activities as a')
+            ->leftJoin('submissions as s', function ($join) use ($studentId) {
+                $join->on('a.id', '=', 's.activity_id')
+                    ->where('s.student_id', '=', $studentId);
+            })
+            ->where('a.course_class_id', $classId)
+            ->select(
+                'a.id as activity_id',
+                'a.course_class_id',
+                'a.user_id as creator_id',
+                'a.default',
+                'a.lessonId',
+                'a.title as activity_title',
+                'a.description as activity_description',
+                'a.final_assessment',
+                'a.manual_checking',
+                'a.time_limit',
+                'a.point as activity_points',
+                'a.start_date',
+                'a.end_date',
+                'a.dueReminder',
+                DB::raw('COALESCE(s.score, 0) as submission_score')
+            )
+            ->get();
+
+        return response()->json($activities);
+    }
 }
 
 
