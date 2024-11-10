@@ -274,7 +274,7 @@ class ActivitiesController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'due_date' => 'nullable|date',
-            'files' => 'required|array',
+            'files' => 'nullable|array',
             'files.*' => 'file|mimes:doc,docx,xlsx,ppt,pptx,jpeg,jpg,png,txt',
         ]);
 
@@ -292,22 +292,22 @@ class ActivitiesController extends Controller
             'end_date' => $validated['due_date'],
         ]);
 
-        $files = $validated['files'];
+        if ($request->has('files')) {
+            foreach ($request->input('files') as $file) {
+                // Access various properties of the file object
+                $originalName = $file->getClientOriginalName();  // e.g., 'document1.docx'
+                $filePath = $file->store('activity_files', 's3'); // Store the file in the 's3' disk and get the path
+                $fileType = $file->getClientOriginalExtension();  // e.g., 'docx'
+                $s3Link = Storage::disk('s3')->url($filePath);   // Get the S3 link of the file
 
-        foreach ($files as $file) {
-            // Access various properties of the file object
-            $originalName = $file->getClientOriginalName();  // e.g., 'document1.docx'
-            $filePath = $file->store('activity_files', 's3'); // Store the file in the 's3' disk and get the path
-            $fileType = $file->getClientOriginalExtension();  // e.g., 'docx'
-            $s3Link = Storage::disk('s3')->url($filePath);   // Get the S3 link of the file
-
-            // Now you can create an entry in the ActivityFile model
-            ActivityFile::create([
-                'activity_id' => $activity->id, // Assume this is set in your logic
-                'file_path' => $s3Link,         // Store the S3 link
-                'file_type' => $fileType,
-                'file_name' => $originalName,
-            ]);
+                // Now you can create an entry in the ActivityFile model
+                ActivityFile::create([
+                    'activity_id' => $activity->id, // Assume this is set in your logic
+                    'file_path' => $s3Link,         // Store the S3 link
+                    'file_type' => $fileType,
+                    'file_name' => $originalName,
+                ]);
+            }
         }
 
         return response()->json(['message' => 'Activity created successfully!'], 201);

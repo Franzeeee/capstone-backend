@@ -98,4 +98,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('activity/logic/upload', [ActivitiesController::class, 'createLogicActivity']);
     Route::get('activity/logic/{activityId}/files', [ActivityFileController::class, 'fetchFiles']);
+
+    Route::post('/submission/logic/grade', [SubmissionController::class, 'gradeLogicSubmission']);
 });

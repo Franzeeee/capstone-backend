@@ -52,7 +52,15 @@ class AuthController extends Controller
         }
 
         $user->markEmailAsVerified();
-        return redirect()->to('https://example.com');
+        $userData = $user->toArray();
+
+        $userDataJson = json_encode($userData);
+
+        return response()->json([
+            'message' => 'Email verified successfully.',
+            'redirect_url' => 'http://localhost:5173/',
+            'user_data' => $userDataJson
+        ]);
     }
 
 
@@ -74,6 +82,8 @@ class AuthController extends Controller
 
         $cookie = Cookie::make('jwt', $token, 60 * 24 * 326, '/', null, true, true, false, 'None');
 
+
+        $user->verified = $user->hasVerifiedEmail();
         return response(['message' => $user])->withCookie($cookie);
     }
 
@@ -96,7 +106,6 @@ class AuthController extends Controller
             'email' => $user->email,
             'phone' => $user->phone,
             'role' => $user->role,
-            'test' => "this is a test"
         ];
 
         return response()->json($response);

@@ -21,6 +21,8 @@ class SubmissionController extends Controller
             'activity_id' => 'required|exists:activities,id',
             'score' => 'nullable|integer',
             'status' => 'nullable|string',
+            'feedback' => 'nullable|string',
+            'time_taken' => 'nullable|integer',
             'coding_problem_codes' => 'required|array',
             'coding_problem_codes.*.problem_id' => 'required|exists:coding_problems,id',
             'coding_problem_codes.*.code' => 'nullable|string',
@@ -45,7 +47,15 @@ class SubmissionController extends Controller
             'student_id' => Auth::id(),
             'score' => $validated['score'] ?? 0,
             'status' => $validated['status'] ?? 'pending',
+            'time_taken' => $validated['time_taken'] ?? 0,
         ]);
+
+        if ($validated['feedback']) {
+            SubmissionFeedback::create([
+                'submission_id' => $submission->id,
+                'feedback' => $validated['feedback'],
+            ]);
+        }
 
         // Store each coding problem submission
         foreach ($validated['coding_problem_codes'] as $codingProblem) {
@@ -199,6 +209,7 @@ class SubmissionController extends Controller
             ->join('profiles', 'users.id', '=', 'profiles.user_id') // Join with the profiles table using user_id
             ->with('activity.codingProblems')
             ->with('codingProblemSubmissions')
+            ->with('submissionFiles')
             ->with('feedback')
             ->select('submissions.*', 'users.name', 'users.email', DB::raw("CONCAT('/storage/', profiles.profile_path) as profile_path")) // Include the user and profile columns you need
             ->paginate($perPage);
@@ -260,6 +271,38 @@ class SubmissionController extends Controller
             if ($codingProblemSubmission) {
                 $codingProblemSubmission->update([
                     'score' => $codingProblem['score'] ?? $codingProblemSubmission->score,
+                ]);
+            }
+        }
+
+        return response()->json($submission, 200);
+    }
+
+
+    public function gradeLogicSubmission(Request $request)
+    {
+        $validated = $request->validate([
+            'submission_id' => 'required|exists:submissions,id',
+            'score' => 'required|integer',
+            'feedback' => 'required|string',
+        ]);
+
+        $submission = Submission::find($validated['submission_id']);
+        $submission->update([
+            'score' => $validated['score'],
+            'status' => 'graded',
+        ]);
+
+        if ($request->input('feedback' !== null)) {
+            $feedback = $submission->feedback;
+            if ($feedback) {
+                $feedback->update([
+                    'feedback' => $validated['feedback'],
+                ]);
+            } else {
+                SubmissionFeedback::create([
+                    'submission_id' => $submission->id,
+                    'feedback' => $validated['feedback'],
                 ]);
             }
         }

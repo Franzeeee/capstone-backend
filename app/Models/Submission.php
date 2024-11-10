@@ -13,6 +13,7 @@ class Submission extends Model
         'activity_id',
         'student_id',
         'score',
+        'time_taken',
         'status',
     ];
 
