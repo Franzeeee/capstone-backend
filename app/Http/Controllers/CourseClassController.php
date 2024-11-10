@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\CourseClass;
 use App\Models\ClassCode;
 use App\Models\ClassCodes;
+use App\Models\Grade;
 use App\Models\User;
 use App\Models\StudentProgress;
 use Illuminate\Support\Str;
@@ -81,6 +82,10 @@ class CourseClassController extends Controller
             'schedule' => $request->input('schedule'),
             'room' => $request->input('room'),
             'subject' => $request->input('subject'),
+            'grade_distribution' => json_encode([
+                'assignment' => 0.5,
+                'exam' => 0.5,
+            ]),
             'start_date' => $request->input('startDate'),
             'end_date' => $request->input('endDate'),
         ]);
@@ -160,6 +165,12 @@ class CourseClassController extends Controller
 
         // Attach the student to the class (enroll the student)
         $courseClass->students()->attach($student->id);
+        Grade::create([
+            'student_id' => $student->id,
+            'class_id' => $courseClass->id,
+            'final_grade' => 0,
+            'remarks' => 'Not yet graded',
+        ]);
 
         return response()->json(['message' => 'Student successfully enrolled in class', "class" => $courseClass], 200);
     }

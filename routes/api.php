@@ -9,9 +9,11 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\StudentProgressController;
 use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\ActivityFileController;
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubmissionFileController;
+use App\Models\Grade;
 use Illuminate\Support\Facades\Route;
 
 
@@ -100,4 +102,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('activity/logic/{activityId}/files', [ActivityFileController::class, 'fetchFiles']);
 
     Route::post('/submission/logic/grade', [SubmissionController::class, 'gradeLogicSubmission']);
+
+    Route::get('grades/{classId}/fetch', [GradeController::class, 'fetchAllStudentGrade']);
 });
