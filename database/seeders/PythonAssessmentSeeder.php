@@ -23,8 +23,8 @@ class PythonAssessmentSeeder extends Seeder
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Variables',
+                'description' => 'This topic covers creating variables for name and age, and then combining them to print them in a single sentence.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -42,8 +42,8 @@ class PythonAssessmentSeeder extends Seeder
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 1,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Operators Assessment',
+                'description' => 'This topic covers creating a simple calculator that takes two numbers and calculates their sum, difference, product, and quotient.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -64,8 +64,8 @@ Quotient: 5.0',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 2,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Comments Assessment',
+                'description' => 'This topic covers creating variables for name and age, printing them, and adding appropriate comments to explain each step.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -86,8 +86,8 @@ age = 25',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 3,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'String Manipulation Assessment',
+                'description' => 'This topic covers creating a string and replacing a word in it with another word.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -105,8 +105,8 @@ age = 25',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 4,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Built-in methods for manipulating strings Assessment',
+                'description' => 'This topic covers using a combination of built-in string methods to manipulate and transform text in various ways.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -127,8 +127,8 @@ JAVA*IS*FUN.*JAVA*IS*POWERFUL.',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 5,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'String Formatting Assessment',
+                'description' => 'This topic covers using string methods to search for substrings and analyze their positions within a string.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -153,8 +153,8 @@ True',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 6,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Checking String Characteristics Assessment',
+                'description' => 'This topic covers using string methods to check properties like alphabetic content, substring matches, and case sensitivity in a string.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -176,8 +176,8 @@ the string is in lowercase: True',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 8,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Decision Control Structures Assessment',
+                'description' => 'This topic involves using decision control structures to classify student grades based on numerical input, such as categorizing a grade like 78 as "C."',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -195,8 +195,8 @@ the string is in lowercase: True',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 9,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Logical Operators with Decision Control Structures Assessment',
+                'description' => 'This topic involves using decision control structures and logical operators to provide weather advisories and suggest outdoor activities based on conditions such as temperature and rain.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -215,8 +215,8 @@ Better to stay inside.',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 10,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Relational Operators in Conditional Statements Assessment',
+                'description' => 'This topic demonstrates how to use relational operators to categorize and evaluate age, such as determining if someone is an adult or a minor based on age.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -234,8 +234,8 @@ Better to stay inside.',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 11,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Using Relational Operators in Conditional Statements Assessment',
+                'description' => 'This topic shows how to use relational operators to classify student scores into categories like "Very Good," "Good," or "Needs Improvement."',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -253,8 +253,8 @@ Better to stay inside.',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 12,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Combining Relational Operators with Logical Operators Assessment',
+                'description' => 'This topic involves using decision control structures to determine eligibility for a fitness membership based on factors like age and commitment level.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -272,8 +272,8 @@ Better to stay inside.',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 14,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Lists Assessment',
+                'description' => 'This topic covers creating a list of integers and accessing specific elements from the list, such as the first and last numbers.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -292,8 +292,8 @@ Last number: 50',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 15,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Tuples Assessment',
+                'description' => 'This topic demonstrates how to slice a tuple to retrieve a subset of its elements, such as accessing the first few elements from a tuple.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -311,8 +311,8 @@ Last number: 50',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 16,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Sets Assessment',
+                'description' => 'This topic demonstrates basic set operations in Python, including creating sets, adding/removing elements, and performing union and intersection operations between sets.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -332,8 +332,8 @@ Intersection of fruits and citrus: {"orange"}',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 17,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Dictionaries Assessment',
+                'description' => 'This topic demonstrates using a dictionary to manage student grades, including adding, updating, and retrieving grades for students.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -353,8 +353,8 @@ Grade of Bob: 80',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 18,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Function Calls Assessment',
+                'description' => 'This topic demonstrates defining and using functions to calculate the square of a number, check its evenness, and combine these to describe the number.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -372,8 +372,9 @@ Grade of Bob: 80',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 19,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Function Arguments Assessment',
+                'description' => '
+This topic covers defining functions with various types of arguments—positional, keyword, and default—and demonstrates how to call them with different argument combinations.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -394,8 +395,9 @@ Total price with tax: 110.0',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 20,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Return Statement Assessment',
+                'description' => '
+This topic covers defining functions with return statements to perform calculations and use returned values for further operations.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -414,8 +416,9 @@ Maximum value: 12',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 22,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Lambda Functions (Anonymous Functions) Assessment',
+                'description' => '
+This topic covers using lambda functions in Python for simple operations and their use in higher-order functions like map, filter, and sorted.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -435,8 +438,8 @@ Sorted tuples: [(1, "one"), (3, "three"), (2, "two")]',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 24,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Math Module Assessment',
+                'description' => 'Use functions from the Python math module to perform basic mathematical operations like square root, rounding, and calculating powers.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -457,8 +460,8 @@ Value of pi: 3.141592653589793',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 25,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Random Module Assessment',
+                'description' => 'Use functions from the random module to generate random numbers, select random elements from a list, and shuffle items. Demonstrate basic randomness functionalities.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -479,8 +482,8 @@ Shuffled cards: ["Queen", "Ace", "Jack", "King"]',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 26,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'File Handling Assessment',
+                'description' => 'Perform basic file handling operations by creating a text file, writing content to it, and then reading the content back. Ensure to demonstrate proper opening and closing of files.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -498,8 +501,8 @@ Shuffled cards: ["Queen", "Ace", "Jack", "King"]',
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 27,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Exception Handling Assessment',
+                'description' => 'Demonstrate basic exception handling in Python by creating scenarios that may raise exceptions. You will use try-except blocks to manage these exceptions effectively.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -513,13 +516,13 @@ Error: The file was not found.',
                     ]
                 ],
             ],
-            [
+           [
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
                 'lessonId' => 28,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'title' => 'Combined File Handling and Exception Handling Assessment',
+                'description' => 'Perform file handling (create, write, read) while managing potential errors using exception handling.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
