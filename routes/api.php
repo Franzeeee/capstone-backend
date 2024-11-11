@@ -103,8 +103,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/submission/logic/grade', [SubmissionController::class, 'gradeLogicSubmission']);
 
     Route::get('grades/{classId}/fetch', [GradeController::class, 'fetchAllStudentGrade']);
+    Route::get('/grades/{classId}/student/{studentId}/scores', [ActivitiesController::class, 'fetchAllActivityWithStudentSubmission']);
+    Route::post('/grades/{gradeId}/update', [GradeController::class, 'updateGrade']);
 });
-Route::get('/grades/{classId}/student/{studentId}/scores', [ActivitiesController::class, 'fetchAllActivityWithStudentSubmission']);
+
+
 
 
 Route::get('/verify-email/{id}', [AuthController::class, 'verify'])->name('verification.verify');
+Route::post('/assessment/coding/generate', [AiController::class, 'generateCodingProblem']);

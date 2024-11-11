@@ -15,4 +15,21 @@ class GradeController extends Controller
 
         return response()->json($grades);
     }
+
+    public function updateGrade(Request $request, $gradeId)
+    {
+        $validated = $request->validate([
+            'final_grade' => 'required|numeric|min:0|max:100',
+            'remarks' => 'nullable|string',
+        ]);
+
+        $grade = Grade::find($gradeId);
+
+        $grade->final_grade = $validated['final_grade'];
+        $grade->remarks = $request->input('remarks') ?? "Keep going! Review your experience to understand where to improve next.";
+
+        $grade->save();
+
+        return response()->json($grade);
+    }
 }

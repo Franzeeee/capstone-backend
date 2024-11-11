@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\CheatingRecord;
 use Illuminate\Http\Request;
 
 use App\Models\CodingProblemSubmission;
@@ -23,6 +24,8 @@ class SubmissionController extends Controller
             'status' => 'nullable|string',
             'feedback' => 'nullable|string',
             'time_taken' => 'nullable|integer',
+            'exit_fullscreen' => 'nullable|integer',
+            'change_tab' => 'nullable|integer',
             'coding_problem_codes' => 'required|array',
             'coding_problem_codes.*.problem_id' => 'required|exists:coding_problems,id',
             'coding_problem_codes.*.code' => 'nullable|string',
@@ -48,6 +51,12 @@ class SubmissionController extends Controller
             'score' => $validated['score'] ?? 0,
             'status' => $validated['status'] ?? 'pending',
             'time_taken' => $validated['time_taken'] ?? 0,
+        ]);
+
+        $cheatingRecord = CheatingRecord::create([
+            'submission_id' => $submission->id,
+            'exit_fullscreen' => $validated['exit_fullscreen'] ?? 0,
+            'change_tab' => $validated['change_tab'] ?? 0,
         ]);
 
         if ($validated['feedback']) {
@@ -163,11 +172,17 @@ class SubmissionController extends Controller
             // Get the total number of submissions
             $totalSubmissions = $submissions->count();
 
+            // Fetch submission feedback
+            $feedback = SubmissionFeedback::where('submission_id', $submission->id)->first();
+            $cheatingRecord = CheatingRecord::where('submission_id', $submission->id)->first();
+
             return response()->json([
                 'exists' => true,
                 'data' => $submission,
                 'rank' => $rank,
                 'total_submissions' => $totalSubmissions,
+                'feedback' => $feedback,
+                'cheating_record' => $cheatingRecord,
             ], 200);
         } else {
             return response()->json(['exists' => false, 'data' => null], 200);
@@ -202,7 +217,6 @@ class SubmissionController extends Controller
 
     public function fetchAllActivitySubmission(Request $request, $id)
     {
-
         $perPage = $request->input('per_page', 10); // Default to 10 per page if not specified
         $submissions = Submission::where('activity_id', $id)
             ->join('users', 'submissions.student_id', '=', 'users.id') // Join with the users table using student_id
@@ -211,13 +225,18 @@ class SubmissionController extends Controller
             ->with('codingProblemSubmissions')
             ->with('submissionFiles')
             ->with('feedback')
+            ->with('cheatingRecord')
             ->select('submissions.*', 'users.name', 'users.email', DB::raw("CONCAT('/storage/', profiles.profile_path) as profile_path")) // Include the user and profile columns you need
+            ->orderBy('submissions.score', 'desc')
+            ->orderBy('submissions.created_at', 'asc')
             ->paginate($perPage);
 
-        $submissions->transform(function ($submission) {
+        // Add ranking to each submission
+        $rank = 1;
+        foreach ($submissions as $submission) {
+            $submission->rank = $rank++;
             $submission->profile_path = asset($submission->profile_path);
-            return $submission;
-        });
+        }
 
         return response()->json($submissions, 200);
     }

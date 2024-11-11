@@ -40,4 +40,8 @@ class Submission extends Model
     {
         return $this->hasOne(SubmissionFeedback::class);
     }
+    public function cheatingRecord()
+    {
+        return $this->hasOne(CheatingRecord::class);
+    }
 }

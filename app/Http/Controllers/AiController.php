@@ -101,4 +101,41 @@ class AiController extends Controller
             return response('An error occurred.', 500);
         }
     }
+
+    public function generateCodingProblem(Request $request)
+    {
+
+        $validated = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'subject' => 'required',
+        ]);
+
+        $message = "
+            Generate a programming problem for {$validated['subject']}, topic is based on this assessment title {$validated['title']} and the description of this title is {$validated['description']}.
+
+            Stricly Follow Ths Response Format:
+            ProblemName: Problem Name Here
+            ProblemDescription: Problem Description Here
+            SampleInput: Sample Input Here
+            SampleOutput: Sample Output Here
+
+            PS. If the title and description is just jarble or not ano valid topic, just return no valid topic. Populate the formata with Invalid if the title and description is invalid or not clear, dont make up.
+        ";
+
+        try {
+            $result = OpenAI::chat()->create([
+                'model' => 'gpt-4-turbo',
+                'messages' => [
+                    ['role' => 'user', 'content' => $message],
+                ],
+            ]);
+            return response()->json([
+                'result' => $result->choices[0]->message->content
+            ], 200);
+        } catch (\Exception $e) {
+            // Handle the error here
+            return response('An error occurred.', 500);
+        }
+    }
 }
