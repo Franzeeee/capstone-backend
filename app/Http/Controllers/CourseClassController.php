@@ -279,7 +279,7 @@ class CourseClassController extends Controller
     public function updateGradeDistribution(Request $request)
     {
         // Validate the incoming request
-        $request->validate([
+        $validated = $request->validate([
             'class_id' => 'required|exists:course_classes,id', // Ensure the class_id exists in the course_classes table
             'assessment' => 'required|numeric', // Ensure the assessment value is numeric
             'final_assessment' => 'required|numeric', // Ensure the final_assessment value is numeric
@@ -287,6 +287,10 @@ class CourseClassController extends Controller
 
         // Find the class by the class ID
         $courseClass = CourseClass::find($request->class_id);
+
+        if ($validated['assessment'] > 1 || $validated['final_assessment'] > 1 || $validated['assessment'] + $validated['final_assessment'] > 1 || $validated['assessment'] + $validated['final_assessment'] < 1) {
+            return response()->json(['message' => 'Grade distribution must not exceed 1'], 400);
+        }
 
         // If the class does not exist, return a 404 error
         if (!$courseClass) {

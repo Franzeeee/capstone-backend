@@ -52,15 +52,8 @@ class AuthController extends Controller
         }
 
         $user->markEmailAsVerified();
-        $userData = $user->toArray();
 
-        $userDataJson = json_encode($userData);
-
-        return response()->json([
-            'message' => 'Email verified successfully.',
-            'redirect_url' => 'http://localhost:5173/',
-            'user_data' => $userDataJson
-        ]);
+        return redirect()->to('http://localhost:5173/verify-email');
     }
 
 
@@ -106,7 +99,10 @@ class AuthController extends Controller
             'email' => $user->email,
             'phone' => $user->phone,
             'role' => $user->role,
+            'verified' => $user->hasVerifiedEmail(),
         ];
+
+
 
         return response()->json($response);
     }

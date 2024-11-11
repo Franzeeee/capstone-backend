@@ -33,8 +33,6 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('/verify-email/{id}', [AuthController::class, 'verify'])->name('verification.verify');
-
     Route::get('user', [AuthController::class, 'user']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('authUser', [AuthController::class, 'checkAuth']);
@@ -107,3 +105,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('grades/{classId}/fetch', [GradeController::class, 'fetchAllStudentGrade']);
 });
 Route::get('/grades/{classId}/student/{studentId}/scores', [ActivitiesController::class, 'fetchAllActivityWithStudentSubmission']);
+
+
+Route::get('/verify-email/{id}', [AuthController::class, 'verify'])->name('verification.verify');
