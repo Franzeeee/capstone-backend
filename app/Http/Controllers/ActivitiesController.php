@@ -320,6 +320,9 @@ class ActivitiesController extends Controller
                 $join->on('a.id', '=', 's.activity_id')
                     ->where('s.student_id', '=', $studentId);
             })
+            ->leftJoin('users as st', function ($join) use ($studentId) {
+                $join->on('st.id', '=', DB::raw($studentId));
+            })
             ->where('a.course_class_id', $classId)
             ->where('a.point', '>', 0)
             ->select(
@@ -337,7 +340,10 @@ class ActivitiesController extends Controller
                 'a.start_date',
                 'a.end_date',
                 'a.dueReminder',
-                DB::raw('COALESCE(s.score, 0) as submission_score')
+                DB::raw('COALESCE(s.score, 0) as submission_score'),
+                'st.id as student_id',
+                'st.name as student_name',
+                'st.email as student_email'
             )
             ->get();
 
