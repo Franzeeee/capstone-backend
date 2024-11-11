@@ -177,7 +177,8 @@ class CourseClassController extends Controller
 
     public function fetchClassStudents($classId)
     {
-        $courseClass = CourseClass::with('students')->find($classId);
+        // $courseClass = CourseClass::with('students')->find($classId);
+        $courseClass = CourseClass::with(['students', 'students.profile'])->find($classId);
 
         if (!$courseClass) {
             return response()->json(['message' => 'Class not found'], 404);
