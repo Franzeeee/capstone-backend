@@ -321,6 +321,7 @@ class ActivitiesController extends Controller
                     ->where('s.student_id', '=', $studentId);
             })
             ->where('a.course_class_id', $classId)
+            ->where('a.point', '>', 0)
             ->select(
                 'a.id as activity_id',
                 'a.course_class_id',
