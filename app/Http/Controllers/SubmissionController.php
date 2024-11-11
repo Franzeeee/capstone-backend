@@ -11,6 +11,7 @@ use App\Models\Submission;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\SubmissionFeedback;
 
 class SubmissionController extends Controller
 {
@@ -20,6 +21,8 @@ class SubmissionController extends Controller
             'activity_id' => 'required|exists:activities,id',
             'score' => 'nullable|integer',
             'status' => 'nullable|string',
+            'feedback' => 'nullable|string',
+            'time_taken' => 'nullable|integer',
             'coding_problem_codes' => 'required|array',
             'coding_problem_codes.*.problem_id' => 'required|exists:coding_problems,id',
             'coding_problem_codes.*.code' => 'nullable|string',
@@ -44,7 +47,15 @@ class SubmissionController extends Controller
             'student_id' => Auth::id(),
             'score' => $validated['score'] ?? 0,
             'status' => $validated['status'] ?? 'pending',
+            'time_taken' => $validated['time_taken'] ?? 0,
         ]);
+
+        if ($validated['feedback']) {
+            SubmissionFeedback::create([
+                'submission_id' => $submission->id,
+                'feedback' => $validated['feedback'],
+            ]);
+        }
 
         // Store each coding problem submission
         foreach ($validated['coding_problem_codes'] as $codingProblem) {
@@ -79,7 +90,7 @@ class SubmissionController extends Controller
                 ->first();
             if ($studentProgress) {
                 $studentProgress->update([
-                    'last_completed_quiz' => $validated['activity_id'],
+                    'last_completed_quiz' => $lesson_id + 1,
                     'last_completed_lesson' => $lesson_id,
                 ]);
             }
@@ -196,6 +207,10 @@ class SubmissionController extends Controller
         $submissions = Submission::where('activity_id', $id)
             ->join('users', 'submissions.student_id', '=', 'users.id') // Join with the users table using student_id
             ->join('profiles', 'users.id', '=', 'profiles.user_id') // Join with the profiles table using user_id
+            ->with('activity.codingProblems')
+            ->with('codingProblemSubmissions')
+            ->with('submissionFiles')
+            ->with('feedback')
             ->select('submissions.*', 'users.name', 'users.email', DB::raw("CONCAT('/storage/', profiles.profile_path) as profile_path")) // Include the user and profile columns you need
             ->paginate($perPage);
 
@@ -212,5 +227,86 @@ class SubmissionController extends Controller
         Submission::destroy($id);
 
         return response()->json(['message' => 'Submission deleted successfully.'], 200);
+    }
+
+    public function updateCodingSubmission(Request $request)
+    {
+        $validated = $request->validate([
+            'submission_id' => 'required|exists:submissions,id',
+            'score' => 'nullable|integer',
+            'status' => 'nullable|string',
+            'coding_problem_submissions' => 'required|array',
+            'coding_problem_submissions.*.problem_id' => 'required|exists:coding_problems,id',
+            'coding_problem_submissions.*.score' => 'nullable|integer',
+            'feedback' => 'nullable',
+        ]);
+
+        // Update the submission
+        $submission = Submission::find($validated['submission_id']);
+        $submission->update([
+            'score' => $validated['score'] ?? $submission->score,
+            'status' => $validated['status'] ?? $submission->status,
+        ]);
+
+        if ($validated['feedback']) {
+            $feedback = $submission->feedback;
+            if ($feedback) {
+                $feedback->update([
+                    'feedback' => $validated['feedback'],
+                ]);
+            } else {
+                SubmissionFeedback::create([
+                    'submission_id' => $submission->id,
+                    'feedback' => $validated['feedback']->feedback,
+                ]);
+            }
+        }
+
+        // Update each coding problem submission
+        foreach ($validated['coding_problem_submissions'] as $codingProblem) {
+            $codingProblemSubmission = CodingProblemSubmission::where('submission_id', $submission->id)
+                ->where('problem_id', $codingProblem['problem_id'])
+                ->first();
+
+            if ($codingProblemSubmission) {
+                $codingProblemSubmission->update([
+                    'score' => $codingProblem['score'] ?? $codingProblemSubmission->score,
+                ]);
+            }
+        }
+
+        return response()->json($submission, 200);
+    }
+
+
+    public function gradeLogicSubmission(Request $request)
+    {
+        $validated = $request->validate([
+            'submission_id' => 'required|exists:submissions,id',
+            'score' => 'required|integer',
+            'feedback' => 'required|string',
+        ]);
+
+        $submission = Submission::find($validated['submission_id']);
+        $submission->update([
+            'score' => $validated['score'],
+            'status' => 'graded',
+        ]);
+
+        if ($request->input('feedback' !== null)) {
+            $feedback = $submission->feedback;
+            if ($feedback) {
+                $feedback->update([
+                    'feedback' => $validated['feedback'],
+                ]);
+            } else {
+                SubmissionFeedback::create([
+                    'submission_id' => $submission->id,
+                    'feedback' => $validated['feedback'],
+                ]);
+            }
+        }
+
+        return response()->json($submission, 200);
     }
 }

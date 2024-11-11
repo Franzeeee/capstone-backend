@@ -58,7 +58,7 @@ class ProfileController extends Controller
         $profile = $user->profile ?? new Profile(['user_id' => $user->id]);
 
         // Delete the previous profile picture if it exists
-        if ($profile->profile_path) {
+        if ($profile->profile_path && $profile->profile_path !== 'profile_pictures/default.png') {
             // Delete the previous image from S3
             Storage::disk('s3')->delete($profile->profile_path); // Ensure this matches your column name
         }

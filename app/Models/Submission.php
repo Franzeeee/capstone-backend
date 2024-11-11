@@ -13,6 +13,7 @@ class Submission extends Model
         'activity_id',
         'student_id',
         'score',
+        'time_taken',
         'status',
     ];
 
@@ -33,5 +34,10 @@ class Submission extends Model
     public function submissionFiles()
     {
         return $this->hasMany(SubmissionFile::class);
+    }
+
+    public function feedback()
+    {
+        return $this->hasOne(SubmissionFeedback::class);
     }
 }

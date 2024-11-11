@@ -38,8 +38,24 @@ class AuthController extends Controller
         $profile->profile_path = 'profile_pictures/default.png';
         $profile->save();
 
+        $user->sendEmailVerificationNotification();
+
         return response()->json(["message" => "Registration"]);
     }
+
+    public function verify(Request $request)
+    {
+        $user = User::findOrFail($request->route('id'));
+
+        if ($user->hasVerifiedEmail()) {
+            return response()->json(['message' => 'Email already verified.']);
+        }
+
+        $user->markEmailAsVerified();
+
+        return redirect()->to('http://localhost:5173/verify-email');
+    }
+
 
     public function login(Request $request)
     {
@@ -59,6 +75,8 @@ class AuthController extends Controller
 
         $cookie = Cookie::make('jwt', $token, 60 * 24 * 326, '/', null, true, true, false, 'None');
 
+
+        $user->verified = $user->hasVerifiedEmail();
         return response(['message' => $user])->withCookie($cookie);
     }
 
@@ -81,8 +99,10 @@ class AuthController extends Controller
             'email' => $user->email,
             'phone' => $user->phone,
             'role' => $user->role,
-            'test' => "this is a test"
+            'verified' => $user->hasVerifiedEmail(),
         ];
+
+
 
         return response()->json($response);
     }

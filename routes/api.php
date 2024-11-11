@@ -9,9 +9,11 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\StudentProgressController;
 use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\ActivityFileController;
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubmissionFileController;
+use App\Models\Grade;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,6 +32,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware('auth:sanctum')->group(function () {
+
     Route::get('user', [AuthController::class, 'user']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('authUser', [AuthController::class, 'checkAuth']);
@@ -55,6 +58,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('class/{code}', [CourseClassController::class, 'fetchClassInfo']);
     Route::get('class/{id}/students', [CourseClassController::class, 'fetchClassStudents']);
     Route::get('student/{id}/classes', [StudentController::class, 'fetchStudentClasses']);
+    Route::post('/student/remove', [CourseClassController::class, 'removeStudent']);
+    Route::post('/class/update-grade-distribution', [CourseClassController::class, 'updateGradeDistribution']);
 
     Route::post('activity/create', [ActivitiesController::class, 'store']);
     Route::get('activity/{id}/all', [ActivitiesController::class, 'getClassActivities']);
@@ -75,6 +80,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('{id}/submissions/all', [SubmissionController::class, 'fetchAllActivitySubmission']);
     Route::delete('activity/submission/{id}/delete', [SubmissionController::class, 'deleteSubmission']);
 
+    Route::post('submission/update', [SubmissionController::class, 'updateCodingSubmission']);
+
 
     Route::post('announcement', [AnnouncementController::class, 'store']);
     Route::get('announcement/fetch', [AnnouncementController::class, 'fetchAllAnnouncements']);
@@ -92,4 +99,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('activity/logic/upload', [ActivitiesController::class, 'createLogicActivity']);
     Route::get('activity/logic/{activityId}/files', [ActivityFileController::class, 'fetchFiles']);
+
+    Route::post('/submission/logic/grade', [SubmissionController::class, 'gradeLogicSubmission']);
+
+    Route::get('grades/{classId}/fetch', [GradeController::class, 'fetchAllStudentGrade']);
 });
+Route::get('/grades/{classId}/student/{studentId}/scores', [ActivitiesController::class, 'fetchAllActivityWithStudentSubmission']);
+
+
+Route::get('/verify-email/{id}', [AuthController::class, 'verify'])->name('verification.verify');

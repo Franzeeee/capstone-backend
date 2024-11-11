@@ -22,6 +22,8 @@ class ActivitiesController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'due_date' => 'nullable|date',
+            'final_assessment' => 'nullable|boolean',
+            'manual_checking' => 'nullable|boolean',
             'time_limit' => 'nullable|integer|min:1',
             'points' => 'required|integer|min:1|max:100',
             'coding_problems' => 'required|array',
@@ -40,9 +42,9 @@ class ActivitiesController extends Controller
                 'user_id' => $validated['user_id'],
                 'title' => $validated['title'],
                 'description' => $validated['description'],
-                'final_assessment' => false,
-                'manual_checking' => false,
-                'time_limit' => $validated['time_limit'] || null,
+                'final_assessment' => $validated['final_assessment'] ?? false,
+                'manual_checking' => $validated['manual_checking'] ?? false,
+                'time_limit' => $validated['time_limit'] ? (int)$validated['time_limit'] : null,
                 'point' => 100,
                 'start_date' => now(),
                 'end_date' => $validated['due_date'],
@@ -272,7 +274,7 @@ class ActivitiesController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'due_date' => 'nullable|date',
-            'files' => 'required|array',
+            'files' => 'nullable|array',
             'files.*' => 'file|mimes:doc,docx,xlsx,ppt,pptx,jpeg,jpg,png,txt',
         ]);
 
@@ -290,25 +292,62 @@ class ActivitiesController extends Controller
             'end_date' => $validated['due_date'],
         ]);
 
-        $files = $validated['files'];
+        if ($request->has('files')) {
+            foreach ($request->input('files') as $file) {
+                // Access various properties of the file object
+                $originalName = $file->getClientOriginalName();  // e.g., 'document1.docx'
+                $filePath = $file->store('activity_files', 's3'); // Store the file in the 's3' disk and get the path
+                $fileType = $file->getClientOriginalExtension();  // e.g., 'docx'
+                $s3Link = Storage::disk('s3')->url($filePath);   // Get the S3 link of the file
 
-        foreach ($files as $file) {
-            // Access various properties of the file object
-            $originalName = $file->getClientOriginalName();  // e.g., 'document1.docx'
-            $filePath = $file->store('activity_files', 's3'); // Store the file in the 's3' disk and get the path
-            $fileType = $file->getClientOriginalExtension();  // e.g., 'docx'
-            $s3Link = Storage::disk('s3')->url($filePath);   // Get the S3 link of the file
-
-            // Now you can create an entry in the ActivityFile model
-            ActivityFile::create([
-                'activity_id' => $activity->id, // Assume this is set in your logic
-                'file_path' => $s3Link,         // Store the S3 link
-                'file_type' => $fileType,
-                'file_name' => $originalName,
-            ]);
+                // Now you can create an entry in the ActivityFile model
+                ActivityFile::create([
+                    'activity_id' => $activity->id, // Assume this is set in your logic
+                    'file_path' => $s3Link,         // Store the S3 link
+                    'file_type' => $fileType,
+                    'file_name' => $originalName,
+                ]);
+            }
         }
 
         return response()->json(['message' => 'Activity created successfully!'], 201);
+    }
+    public function fetchAllActivityWithStudentSubmission($classId, $studentId)
+    {
+
+        $activities = DB::table('activities as a')
+            ->leftJoin('submissions as s', function ($join) use ($studentId) {
+                $join->on('a.id', '=', 's.activity_id')
+                    ->where('s.student_id', '=', $studentId);
+            })
+            ->leftJoin('users as st', function ($join) use ($studentId) {
+                $join->on('st.id', '=', DB::raw($studentId));
+            })
+            ->where('a.course_class_id', $classId)
+            ->where('a.point', '>', 0)
+            ->select(
+                'a.id as activity_id',
+                'a.course_class_id',
+                'a.user_id as creator_id',
+                'a.default',
+                'a.lessonId',
+                'a.title as activity_title',
+                'a.description as activity_description',
+                'a.final_assessment',
+                'a.manual_checking',
+                'a.time_limit',
+                'a.point as activity_points',
+                'a.start_date',
+                'a.end_date',
+                'a.dueReminder',
+                DB::raw('COALESCE(s.score, 0) as submission_score'),
+                'st.id as student_id',
+                'st.name as student_name',
+                'st.email as student_email'
+            )
+            ->get();
+
+        return response()->json($activities);
     }
 }
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('activity_id')->constrained()->onDelete('cascade'); // Foreign key to Activity
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade'); // Foreign key to User (the student)
             $table->integer('score')->nullable(); // Score received for the submission
+            $table->integer('time_taken')->nullable(); // Time taken to complete the submission
             $table->enum('status', ['pending', 'graded', 'failed'])->default('pending'); // Status of the submission
             $table->timestamps(); // Created at and updated at timestamps
         });

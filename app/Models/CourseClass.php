@@ -18,6 +18,7 @@ class CourseClass extends Model
         'schedule',
         'room',
         'subject',
+        'grade_distribution',
         'start_date',
         'end_date',
     ];

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\CourseClass;
 use App\Models\ClassCode;
 use App\Models\ClassCodes;
+use App\Models\Grade;
 use App\Models\User;
 use App\Models\StudentProgress;
 use Illuminate\Support\Str;
@@ -81,6 +82,10 @@ class CourseClassController extends Controller
             'schedule' => $request->input('schedule'),
             'room' => $request->input('room'),
             'subject' => $request->input('subject'),
+            'grade_distribution' => json_encode([
+                'assessment' => 0.5,
+                'final_assessment' => 0.5,
+            ]),
             'start_date' => $request->input('startDate'),
             'end_date' => $request->input('endDate'),
         ]);
@@ -160,13 +165,20 @@ class CourseClassController extends Controller
 
         // Attach the student to the class (enroll the student)
         $courseClass->students()->attach($student->id);
+        Grade::create([
+            'student_id' => $student->id,
+            'class_id' => $courseClass->id,
+            'final_grade' => 0,
+            'remarks' => 'Not yet graded',
+        ]);
 
         return response()->json(['message' => 'Student successfully enrolled in class', "class" => $courseClass], 200);
     }
 
     public function fetchClassStudents($classId)
     {
-        $courseClass = CourseClass::with('students')->find($classId);
+        // $courseClass = CourseClass::with('students')->find($classId);
+        $courseClass = CourseClass::with(['students', 'students.profile'])->find($classId);
 
         if (!$courseClass) {
             return response()->json(['message' => 'Class not found'], 404);
@@ -231,5 +243,69 @@ class CourseClassController extends Controller
 
         // Return the class code information
         return response()->json($classCode, 200);
+    }
+
+    public function removeStudent(Request $request)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'class_id' => 'required|exists:course_classes,id', // Ensure the class_id exists in the course_classes table
+            'student_id' => 'required|exists:users,id', // Ensure the student_id exists in the users table
+        ]);
+
+        // Find the class by the class ID
+        $courseClass = CourseClass::find($request->class_id);
+
+        // If the class does not exist, return a 404 error
+        if (!$courseClass) {
+            return response()->json(['message' => 'Class not found'], 404);
+        }
+
+        // Find the student by the student ID
+        $student = User::find($request->student_id);
+
+        // If the student does not exist, return a 404 error
+        if (!$student) {
+            return response()->json(['message' => 'Student not found'], 404);
+        }
+
+        // Detach the student from the class
+        $courseClass->students()->detach($student->id);
+
+        // Return a success message
+        return response()->json(['message' => 'Student removed from class'], 200);
+    }
+
+    public function updateGradeDistribution(Request $request)
+    {
+        // Validate the incoming request
+        $validated = $request->validate([
+            'class_id' => 'required|exists:course_classes,id', // Ensure the class_id exists in the course_classes table
+            'assessment' => 'required|numeric', // Ensure the assessment value is numeric
+            'final_assessment' => 'required|numeric', // Ensure the final_assessment value is numeric
+        ]);
+
+        // Find the class by the class ID
+        $courseClass = CourseClass::find($request->class_id);
+
+        if ($validated['assessment'] > 1 || $validated['final_assessment'] > 1 || $validated['assessment'] + $validated['final_assessment'] > 1 || $validated['assessment'] + $validated['final_assessment'] < 1) {
+            return response()->json(['message' => 'Grade distribution must not exceed 1'], 400);
+        }
+
+        // If the class does not exist, return a 404 error
+        if (!$courseClass) {
+            return response()->json(['message' => 'Class not found'], 404);
+        }
+
+        // Update the grade distribution
+        $courseClass->update([
+            'grade_distribution' => json_encode([
+                'assessment' => $request->assessment,
+                'final_assessment' => $request->final_assessment,
+            ])
+        ]);
+
+        // Return a success message
+        return response()->json(['message' => 'Grade distribution updated successfully'], 200);
     }
 }

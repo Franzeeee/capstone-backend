@@ -19,11 +19,11 @@ use App\Mail\TestMail;
 Route::get('/', [AiController::class, 'getToken']);
 
 Route::get('/send-mail', function () {
-    Mail::to('user01@gmail.com')->queue(new DueActivityReminderMail('user01@gmail.com'));
+    Mail::to('diazfranzpeter@gmail.com')->queue(new DueActivityReminderMail('diazfranzpeter@gmail.com'));
     return 'Success: Email queued.';
 });
 
-Route::get('/test-send', function () {
-    Mail::to('diazfranzpeter@gmail.com')->send(new TestMail('diazfranzpeter@gmail.com'));
+Route::get('/test-send/{email}', function ($email) {
+    Mail::to($email)->send(new TestMail($email));
     return 'Success: Email queued.';
 });
