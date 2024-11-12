@@ -88,7 +88,7 @@ class AiController extends Controller
         ";
         try {
             $result = OpenAI::chat()->create([
-                'model' => 'gpt-3.5-turbo-0125',
+                'model' => 'gpt-4-turbo',
                 'messages' => [
                     ['role' => 'user', 'content' => $message],
                 ],
