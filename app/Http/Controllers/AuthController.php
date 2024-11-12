@@ -53,7 +53,7 @@ class AuthController extends Controller
 
         $user->markEmailAsVerified();
 
-        return redirect()->to('http://localhost:5173/verify-email');
+        return redirect()->to('http://localhost:5173/');
     }
 
 

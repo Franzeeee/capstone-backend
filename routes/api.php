@@ -13,7 +13,7 @@ use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubmissionFileController;
-use App\Models\Grade;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -105,10 +105,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('grades/{classId}/fetch', [GradeController::class, 'fetchAllStudentGrade']);
     Route::get('/grades/{classId}/student/{studentId}/scores', [ActivitiesController::class, 'fetchAllActivityWithStudentSubmission']);
     Route::post('/grades/{gradeId}/update', [GradeController::class, 'updateGrade']);
+
+    Route::post('/assessment/coding/generate', [AiController::class, 'generateCodingProblem']);
+
+    Route::post('/events/create', [ScheduleController::class, 'createEvent']);
+    Route::get('/events/fetch', [ScheduleController::class, 'fetchEvents']);
 });
 
 
 
 
 Route::get('/verify-email/{id}', [AuthController::class, 'verify'])->name('verification.verify');
-Route::post('/assessment/coding/generate', [AiController::class, 'generateCodingProblem']);
