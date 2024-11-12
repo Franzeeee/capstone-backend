@@ -34,8 +34,23 @@ class ScheduleController extends Controller
 
     public function fetchEvents()
     {
-        $events = Schedule::where('user_id', Auth::id())->get();
+        $events = Schedule::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json($events);
+    }
+
+    public function deleteEvent($id)
+    {
+        $event = Schedule::find($id);
+
+        if ($event->user_id !== Auth::id()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        $event->delete();
+
+        return response()->json(['message' => 'Event deleted']);
     }
 }

@@ -110,6 +110,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/events/create', [ScheduleController::class, 'createEvent']);
     Route::get('/events/fetch', [ScheduleController::class, 'fetchEvents']);
+    Route::delete('/events/{id}/delete', [ScheduleController::class, 'deleteEvent']);
 });
 
 
