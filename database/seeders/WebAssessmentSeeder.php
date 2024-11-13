@@ -20,9 +20,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
+                'lessonId' => 4,
                 'title' => 'HTML Paragraphs',
-                'description' => 'This activity will test your knowledge of HTML Paragraphs.',
+                'description' => 'This topic covers the HTML role as the basic language for building web pages and applications, focusing on its importance in structuring content on the web.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -50,9 +50,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 5,
+                'title' => 'HTML Paragraph with Inline Styles',
+                'description' => 'This topic explains how CSS is used to style and format HTML documents, controlling aspects like font size, color, and text formatting.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -86,9 +86,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 6,
+                'title' => 'HTML Paragraph with Formatting Tags',
+                'description' => 'This assessment will enhance your understanding and practical application of HTML formatting techniques to structure and emphasize text content effectively.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -122,13 +122,13 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 7,
+                'title' => 'HTML Quotation Tags',
+                'description' => 'This topic covers how to use the HTML <blockquote> and <cite> tags for quoting text and citing sources.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
-                'coding_problems' => [
+                'coding_problems' => [  
                     [
                         'title' => 'HTML Quotation Tags Assessment',
                         'description' => 'Use HTML to display the following text:
@@ -160,9 +160,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 8,
+                'title' => 'HTML Comments',
+                'description' => 'This topic explains how to use HTML comments to document the code and provide explanations without displaying them on the web page.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -198,9 +198,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 9,
+                'title' => 'HTML and Internal CSS Styling',
+                'description' => 'This topic explains how to use internal CSS within the <style> tag to style HTML elements, including setting background color, text color, alignment, and padding.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -245,9 +245,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 10,
+                'title' => 'HTML Heading Leveling with Personal Information',
+                'description' => 'This topic demonstrates how to use different HTML heading tags (<h1>, <h2>, <h3>) to structure and display information in hierarchical order."',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -280,9 +280,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 11,
+                'title' => 'HTML Image Tag',
+                'description' => 'This topic shows how to use the HTML <img> tag to embed an image, set its source (src), add alternative text (alt), and adjust its dimensions using the width attribute.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -320,9 +320,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 12,
+                'title' => 'HTML Page Title',
+                'description' => 'This topic demonstrates how to use the <title> tag within the <head> section to set the title of a web page, which appears in the browser tab.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -355,9 +355,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 13,
+                'title' => 'HTML Tables',
+                'description' => 'This topic demonstrates how to create a simple HTML table using <table>, <tr>, <th>, and <td> tags to display data in rows and columns.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -406,9 +406,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 14,
+                'title' => 'HTML Lists',
+                'description' => 'This topic shows how to create both unordered and ordered lists in HTML, using <ul> for listing items like fruits and <ol> for providing reasons associated with each item.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -453,9 +453,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 15,
+                'title' => 'HTML Block and Inline Elements',
+                'description' => 'This topic demonstrates the use of block-level and inline elements in HTML and shows how to style them with CSS.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -505,9 +505,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 16,
+                'title' => 'HTML <div> Element',
+                'description' => 'This topic demonstrates how to use the <div> tag as a container for other elements, like headings and paragraphs, and how to apply CSS for styling.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -550,9 +550,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 17,
+                'title' => 'HTML Classes',
+                'description' => 'This topic shows how to use HTML classes for styling elements, applying different styles to a <div>, heading, and paragraphs based on their class names using CSS.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -560,7 +560,6 @@ class WebAssessmentSeeder extends Seeder
                     [
                         'title' => ' HTML Classes Assessment',
                         'description' => 'Use HTML to demonstrate the use of classes for styling elements.
-
                         Create a <div> element and assign it a class called container.
                         Inside the <div>, include a heading <h1> with the text "Welcome to My Website".
                         Below the heading, add two paragraphs <p>. The first paragraph should have the class highlight, and the second should have the class normal.
@@ -604,9 +603,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 18,
+                'title' => 'HTML ID Attribute',
+                'description' => 'This topic demonstrates how to use the id attribute in HTML to uniquely identify elements and apply specific styles using CSS.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -653,9 +652,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 19,
+                'title' => 'HTML <iframe> Element',
+                'description' => 'This topic demonstrates how to embed an external webpage using the <iframe> tag in HTML with attributes for size and description.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -692,9 +691,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 20,
+                'title' => 'HTML and JavaScript Integration',
+                'description' => 'This topic demonstrates how to integrate JavaScript into an HTML webpage, using the <script> tag and an onclick event to trigger a function.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -732,16 +731,24 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 25,
+                'title' => 'CSS Comment',
+                'description' => 'This assessment will test your understanding of using comments in CSS for clarity and documentation.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
                 'coding_problems' => [
                     [
                         'title' => 'CSS Comment Assessment',
-                        'description' => 'CSS Comment Assessment',
+                        'description' => 'In this assessment, you will demonstrate how to use comments in CSS to document your styles and provide explanations within your code.
+
+Instructions:
+
+Create a basic HTML page structure with the necessary <html>, <head>, and <body> tags.
+Inside the <head>, include a <style> tag to write your CSS.
+Add a comment in the CSS using both single-line and multi-line comments.
+Use the single-line comment to explain a basic style rule for the body element.
+Use the multi-line comment to explain a more detailed style rule or a section of your CSS.',
                         'sample_input' => '',
                         'expected_output' => '<!DOCTYPE html>
                         <html lang="en">
@@ -772,9 +779,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 26,
+                'title' => 'CSS Colors',
+                'description' => 'This topic covers applying background and text colors to elements using CSS, with different color formats like named colors, hex, and RGB.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -819,9 +826,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 27,
+                'title' => 'CSS Background',
+                'description' => 'This topic covers using CSS to set background colors, images, and size properties for elements, along with padding and preventing image repetition.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -870,9 +877,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 28,
+                'title' => 'CSS Border',
+                'description' => 'This topic demonstrates how to use CSS to add borders around HTML elements, including setting border width, style, color, padding, and using border-radius for rounded corners.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -915,9 +922,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 29,
+                'title' => 'CSS Margin',
+                'description' => 'Basic assessment to test Python fundamentals.This topic covers using CSS to apply and customize margins around HTML elements to create space between them and surrounding content.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -963,9 +970,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 30,
+                'title' => 'CSS Padding',
+                'description' => 'This topic covers using CSS to apply padding inside HTML elements, creating space between the content and the border.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1011,9 +1018,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 31,
+                'title' => 'CSS Height and Width',
+                'description' => 'This topic demonstrates how to use CSS to set the height and width of an HTML element, ensuring the content fits within the defined dimensions.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1057,9 +1064,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 32,
+                'title' => 'CSS Box Model',
+                'description' => 'This topic covers the CSS box model, including setting width, padding, border, and margin, and using box-sizing to control element sizing.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1106,9 +1113,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 33,
+                'title' => 'CSS Outline',
+                'description' => 'This topic covers applying outlines to HTML elements using CSS, including the :focus pseudo-class to show outlines without affecting layout.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1156,9 +1163,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 34,
+                'title' => 'CSS Text',
+                'description' => 'This topic demonstrates how to use CSS to style text elements, including setting text color, font size, font family, alignment, text decoration, and line height.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1204,9 +1211,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 35,
+                'title' => 'CSS Fonts',
+                'description' => 'This topic demonstrates how to use CSS to style fonts in HTML elements, including custom fonts, font size, weight, style, and line height for improved readability.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1250,9 +1257,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 36,
+                'title' => 'CSS Icons',
+                'description' => 'This topic demonstrates how to incorporate icons into a webpage using a popular icon library like Font Awesome, and style them with CSS, including size, color, and hover effects.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1299,9 +1306,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 37,
+                'title' => 'CSS Links',
+                'description' => 'This topic demonstrates how to style hyperlinks in CSS, including setting default and hover link colors, adding hover effects, and controlling the text decoration.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1318,7 +1325,7 @@ class WebAssessmentSeeder extends Seeder
                         'sample_input' => '',
                         'expected_output' => '<!DOCTYPE html>
                         <html lang="en">
-                        <head>
+                        <head>3
                             <meta charset="UTF-8">
                             <meta name="viewport" content="width=device-width, initial-scale=1.0">
                             <title>CSS Links Example</title>
@@ -1345,9 +1352,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 38,
+                'title' => 'CSS Lists',
+                'description' => 'This topic demonstrates how to style unordered and ordered lists in CSS, including list style types, padding, margin, and customizing list item font size and color.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1408,9 +1415,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 39,
+                'title' => 'CSS Tables',
+                'description' => 'This topic covers styling HTML tables with CSS, including borders, padding, background colors, and hover effects for rows.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1481,9 +1488,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 40,
+                'title' => 'CSS Display',
+                'description' => 'This topic demonstrates how to use the CSS display property to control the layout of HTML elements, including block, inline-block, and none values.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1542,9 +1549,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 41,
+                'title' => 'CSS Position',
+                'description' => 'This topic demonstrates how to use CSS positioning properties (static, relative, absolute, fixed) to control the layout and placement of HTML elements.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1621,9 +1628,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 42,
+                'title' => 'CSS Z-Index',
+                'description' => 'This topic demonstrates how to use the CSS z-index property to control the stacking order of elements, ensuring the element with the highest z-index appears on top.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1685,9 +1692,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 43,
+                'title' => 'CSS Align',
+                'description' => 'This topic covers using CSS Flexbox to horizontally and vertically align elements within a parent container.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
@@ -1739,9 +1746,9 @@ class WebAssessmentSeeder extends Seeder
                 'course_class_id' => $courseClassId,
                 'user_id' => $userId,
                 'default' => true,
-                'lessonId' => 0,
-                'title' => 'Python Basics Assessment',
-                'description' => 'Basic assessment to test Python fundamentals.',
+                'lessonId' => 44,
+                'title' => 'CSS Overflow',
+                'description' => 'This topic covers using the CSS overflow property to manage content overflow within an element, including scrolling and hiding overflowed content.',
                 'due_date' => null, // Open-ended by default
                 'points' => 100,
                 'time_limit' => 1800, // 30 minutes
