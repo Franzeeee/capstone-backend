@@ -308,4 +308,20 @@ class CourseClassController extends Controller
         // Return a success message
         return response()->json(['message' => 'Grade distribution updated successfully'], 200);
     }
+
+
+    // Fetch course class id based on code
+    public function fetchClassId($code)
+    {
+        // Find the class by the class code
+        $classCode = ClassCodes::where('code', $code)->first();
+
+        // If the class code does not exist, return a 404 error
+        if (!$classCode) {
+            return response()->json(['message' => 'Class not found'], 404);
+        }
+
+        // Return the class information with a 200 status code
+        return response()->json($classCode->class_id, 200);
+    }
 }

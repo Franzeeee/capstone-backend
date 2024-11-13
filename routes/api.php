@@ -111,6 +111,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/events/create', [ScheduleController::class, 'createEvent']);
     Route::get('/events/fetch', [ScheduleController::class, 'fetchEvents']);
     Route::delete('/events/{id}/delete', [ScheduleController::class, 'deleteEvent']);
+
+    // Get class id by code
+    Route::get('/code/{code}/id', [CourseClassController::class, 'fetchClassId']);
 });
 
 

@@ -108,7 +108,7 @@ class SubmissionController extends Controller
         return response()->json([
             'submission' => $submission,
             'rank' => $rank,
-            'progress' => $studentProgress,
+            'progress' => $studentProgress ?? null,
         ], 201);
     }
 
