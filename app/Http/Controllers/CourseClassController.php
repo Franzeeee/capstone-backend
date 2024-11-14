@@ -369,7 +369,7 @@ class CourseClassController extends Controller
         $students = $class->students;
 
         if ($students->isEmpty()) {
-            return response()->json(['message' => 'No students enrolled in this class'], 404);
+            return response()->json(['classData' => $class, 'label' => $class->name, 'data' => []], 200);
         }
 
         $averageScores = $students->map(function ($student) {
@@ -392,5 +392,74 @@ class CourseClassController extends Controller
         });
 
         return response()->json(['classData' => $class, 'label' => $class->name, 'data' => $averageScores], 200);
+    }
+
+    public function fetchClassAverages()
+    {
+        $teacherId = Auth::id();  // You can make this dynamic based on the authenticated teacher.
+
+        // Fetch all the classes associated with the teacher
+        $classes = CourseClass::where('teacher_id', $teacherId)->get();
+
+        if ($classes->isEmpty()) {
+            return response()->json(['message' => 'No classes found for this teacher'], 404);
+        }
+
+        // Process each class
+        $classAverages = $classes->map(function ($class) {
+            // Fetch all students enrolled in the class
+            $students = $class->students;
+
+            // Get the enrolled student count
+            $enrolledStudentCount = $students->count();
+
+            if ($enrolledStudentCount === 0) {
+                return [
+                    'enrolled_student_count' => 0,
+                    'label' => $class->name,
+                    'data' => []
+                ];
+            }
+
+            // Get the average score for each student
+            $averageScores = $students->map(function ($student) use ($class) {
+                // Get all activities for this class
+                $activities = $class->activities;
+
+                $totalScore = 0;
+                $activityCount = 0;
+
+                // Loop through each activity and fetch the submission for the student
+                foreach ($activities as $activity) {
+                    $submission = Submission::where('student_id', $student->id)
+                        ->where('activity_id', $activity->id)  // Link submission to activity
+                        ->first();
+
+                    if ($submission) {
+                        $totalScore += $submission->score;
+                        $activityCount++;
+                    }
+                }
+
+                // Calculate the average score for this student
+                if ($activityCount > 0) {
+                    return round($totalScore / $activityCount); // Average of all submissions for this student
+                }
+
+                return 0;  // If no submissions, return 0
+            });
+
+            // Calculate the overall average score for the class
+            $totalAverage = $averageScores->sum() / $averageScores->count();
+
+            return [
+                'enrolled_student_count' => $enrolledStudentCount,
+                'class_section' => $class->section,
+                'label' => $class->name,
+                'data' => round($totalAverage)  // Overall average score for the class
+            ];
+        });
+
+        return response()->json($classAverages, 200);
     }
 }
