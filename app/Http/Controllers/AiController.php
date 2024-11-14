@@ -14,11 +14,13 @@ class AiController extends Controller
             'userMessage' => 'required',
         ]);
 
+        $message = $validated['userMessage'] . ", If this message is not about programming, please ignore it. If it is about programming, then continue. If not, tell them that you onlyy know programming related topics.";
+
         try {
             $result = OpenAI::chat()->create([
-                'model' => 'gpt-3.5-turbo',
+                'model' => 'gpt-4-turbo',
                 'messages' => [
-                    ['role' => 'user', 'content' => `{$validated['userMessage']}. If this message is not about coding, please ignore. Reply with the message: I only respond to coding related questions.`],
+                    ['role' => 'user', 'content' => $message],
                 ],
             ]);
             return response()->json([
