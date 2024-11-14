@@ -33,9 +33,21 @@ class AnnouncementController extends Controller
             'announcement_date' => now()->toDateString()
         ]);
 
+        // Fetch the teacher and course class data
+        $teacher = $announcement->courseClass->teacher;
+        $courseClass = $announcement->courseClass;
+
         return response()->json([
             'message' => 'Announcement created successfully!',
-            'data' => $announcement
+            'data' => $announcement,
+            'teacher' => [
+                'id' => $teacher->id,
+                'name' => $teacher->name,
+            ],
+            'course_class' => [
+                'id' => $courseClass->id,
+                'name' => $courseClass->name,
+            ]
         ], 201);
     }
 
@@ -91,7 +103,7 @@ class AnnouncementController extends Controller
         // Fetch announcements for these classes
         $announcements = Announcement::whereIn('course_class_id', $classIds)
             ->with('courseClass.teacher')
-            ->orderBy('announcement_date', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
         $transformedAnnouncements = $announcements->map(function ($announcement) {
             return [
