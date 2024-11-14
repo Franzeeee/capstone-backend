@@ -18,7 +18,7 @@ class AiController extends Controller
             $result = OpenAI::chat()->create([
                 'model' => 'gpt-3.5-turbo',
                 'messages' => [
-                    ['role' => 'user', 'content' => $validated['userMessage']],
+                    ['role' => 'user', 'content' => `{$validated['userMessage']}. If this message is not about coding, please ignore. Reply with the message: I only respond to coding related questions.`],
                 ],
             ]);
             return response()->json([

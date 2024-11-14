@@ -27,3 +27,7 @@ Route::get('/test-send/{email}', function ($email) {
     Mail::to($email)->send(new TestMail($email));
     return 'Success: Email queued.';
 });
+
+Route::get('/due-email', function () {
+    return view('emails/due-activity-reminder');
+});
