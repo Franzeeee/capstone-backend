@@ -114,7 +114,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Get class id by code
     Route::get('/code/{code}/id', [CourseClassController::class, 'fetchClassId']);
+
+    Route::get('/teacher/class/all', [CourseClassController::class, 'fetchTeacherClasses']);
 });
+Route::get('/classes/{studentId}/fetch', [CourseClassController::class, 'fetchUserClasses']);
+Route::get('/class/{classId}/student/average', [CourseClassController::class, 'fetchAvgStudentScores']);
 
 
 

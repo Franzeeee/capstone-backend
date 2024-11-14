@@ -48,12 +48,12 @@ class AuthController extends Controller
         $user = User::findOrFail($request->route('id'));
 
         if ($user->hasVerifiedEmail()) {
-            return response()->json(['message' => 'Email already verified.']);
+            return redirect()->to('http://codelab-api.online/verify-email');
         }
 
         $user->markEmailAsVerified();
 
-        return redirect()->to('http://localhost:5173/');
+        return redirect()->to('http://codelab-api.online/verify-email');
     }
 
 

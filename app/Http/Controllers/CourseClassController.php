@@ -13,6 +13,8 @@ use Illuminate\Support\Str;
 use Database\Seeders\PythonAssessmentSeeder;
 use Database\Seeders\WebAssessmentSeeder;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Submission;
+use App\Models\Activity;
 
 class CourseClassController extends Controller
 {
@@ -323,5 +325,72 @@ class CourseClassController extends Controller
 
         // Return the class information with a 200 status code
         return response()->json($classCode->class_id, 200);
+    }
+
+    public function fetchUserClasses($userId)
+    {
+        // Fetch classes associated with the specified student_id
+        $classes = CourseClass::whereHas('students', function ($query) use ($userId) {
+            $query->where('student_id', $userId);
+        })->with('classCode')->get();
+        $classes = $classes->map(function ($class) use ($userId) {
+            $grade = Grade::where('class_id', $class->id)
+                ->where('student_id', $userId)
+                ->first();
+
+            return [
+                'id' => $class->id,
+                'name' => $class->name,
+                'subject' => $class->subject,
+                'class_code' => $class->classCode->code,
+                'grade' => $grade ? $grade : null,
+            ];
+        });
+
+        // Return the classes as a JSON response
+        return response()->json($classes);
+    }
+
+    public function fetchTeacherClasses()
+    {
+        $classes = CourseClass::where('teacher_id', Auth::id())->get();
+
+        if ($classes->isEmpty()) {
+            return response()->json([], 200);
+        }
+
+        return response()->json($classes, 200);
+    }
+
+    public function fetchAvgStudentScores($classId)
+    {
+        $class = CourseClass::findOrFail($classId);
+        // Fetch all students enrolled in the class
+        $students = $class->students;
+
+        if ($students->isEmpty()) {
+            return response()->json(['message' => 'No students enrolled in this class'], 404);
+        }
+
+        $averageScores = $students->map(function ($student) {
+            $submissions = Submission::where('student_id', $student->id)->get();
+
+            if ($submissions->isEmpty()) {
+                return [
+                    'x' => $student->name,
+                    'y' => 0,
+                ];
+            }
+
+            $totalScore = $submissions->sum('score');
+            $averageScore = $totalScore / $submissions->count();
+
+            return [
+                'x' => $student->name,
+                'y' => round($averageScore),
+            ];
+        });
+
+        return response()->json(['classData' => $class, 'label' => $class->name, 'data' => $averageScores], 200);
     }
 }
