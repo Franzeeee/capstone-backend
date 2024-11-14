@@ -26,8 +26,18 @@
                                 <img src="{{asset('icon/bell.png')}}" alt="">
                             </div>
                             <div class="content">
+                                <div>
                                 <p>Assignment 1</p>
-                                <p>Complete the assignment 1 before the due date</p>
+                                <p>Complete the assignment 1 before the due date</p>                                    
+                                </div>
+                                <div class="instruction">
+                                    <p>Instruction Here..</p>
+                                </div>
+                                <div class="Button-Area">
+                                    <p>Due Date Here</p>
+                                    <button class="Button">View Assessment</button>                                    
+                                </div>
+
                             </div>
                         </div>
                     </div>

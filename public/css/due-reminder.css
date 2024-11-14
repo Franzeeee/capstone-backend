@@ -75,4 +75,22 @@
 }
 .content {
     padding-inline: 10px;
+
+}
+.instruction{
+
+    height: 60%;
+}
+.Button-Area p{
+    margin-bottom: 10px;
+}
+.Button{
+    padding: 10px;
+    background-color: #5C5CD1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.Button:hover{
+    background-color: #0b5ed7;
 }
