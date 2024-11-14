@@ -394,9 +394,8 @@ class CourseClassController extends Controller
         return response()->json(['classData' => $class, 'label' => $class->name, 'data' => $averageScores], 200);
     }
 
-    public function fetchClassAverages()
+    public function fetchClassAverages($teacherId)
     {
-        $teacherId = Auth::id();  // You can make this dynamic based on the authenticated teacher.
 
         // Fetch all the classes associated with the teacher
         $classes = CourseClass::where('teacher_id', $teacherId)->get();

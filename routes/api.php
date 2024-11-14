@@ -119,7 +119,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 Route::get('/classes/{studentId}/fetch', [CourseClassController::class, 'fetchUserClasses']);
 Route::get('/class/{classId}/student/average', [CourseClassController::class, 'fetchAvgStudentScores']);
-Route::get('/class/score/average', [CourseClassController::class, 'fetchClassAverages']);
+Route::get('/class/{teacherId}/score/average', [CourseClassController::class, 'fetchClassAverages']);
 
 
 
