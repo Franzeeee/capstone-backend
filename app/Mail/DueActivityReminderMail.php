@@ -26,10 +26,6 @@ class DueActivityReminderMail extends Mailable
     {
         $this->recipientEmail = $recipientEmail;
         $this->data = (array) $data;
-
-        Log::info('DueActivityReminderMail: Email queued for1 ' . $recipientEmail);
-        Log::info('DueActivityReminderMail: Email queued for2 ' . $this->data['class_name']);
-        Log::info('DueActivityReminderMail: Email queued for3 ' . $this->data['due_date']);
     }
 
     /**
@@ -54,6 +50,8 @@ class DueActivityReminderMail extends Mailable
             markdown: 'emails.due-activity-reminder',
             with: [
                 'className' => $this->data['class_name'],
+                'activityName' => $this->data['activity_name'],
+                'description' => $this->data['description'],
                 'dueDate' => $this->data['due_date'],
             ]
         );

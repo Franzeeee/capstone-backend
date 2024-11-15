@@ -66,8 +66,12 @@ class SendActivityDueReminder extends Command
 
             foreach ($students as $student) {
                 // Log the student's email instead of sending an email
-                Log::info('Would send reminder email to: ' . $student->email);
-                Mail::to($student->email)->queue(new DueActivityReminderMail($student->email));
+                Mail::to($student->email)->queue(new DueActivityReminderMail($student->email, [
+                    'class_name' => $courseClass->name,
+                    'activity_name' => $activity->title,
+                    'description' => $activity->description,
+                    'due_date' => $activity->end_date,
+                ]));
             }
             $activity->update(['dueReminder' => true]);
             $this->info('Activity due reminders sent successfully!');

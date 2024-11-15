@@ -105,10 +105,10 @@
                         <div class="contentContainer">
                             <div class="content">
                                 <div>
-                                <p>Assignment 1</p>                               
+                                <p>{{$activityName ?? "Activity Name"}}</p>                               
                                 </div>
                                 <div class="instruction">
-                                    <p>Instruction Here..</p>
+                                    <p>{{$description ?? ""}}</p>
                                 </div>
                                 <div class="Button-Area">
                                     <p>{{$dueDate ?? "No due date provided"}}</p>
