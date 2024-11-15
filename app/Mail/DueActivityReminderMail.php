@@ -50,7 +50,7 @@ class DueActivityReminderMail extends Mailable
     {
 
         return new Content(
-            markdown: 'emails.due-activity-reminder',
+            view: 'emails.due-activity-reminder',
             with: [
                 'className' => $this->data['class_name'],
                 'dueDate' => $this->data['due_date'],
