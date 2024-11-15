@@ -30,6 +30,7 @@
             align-items: center;
             border-bottom: 1.5px solid #380bff90;
             padding: 10px;
+            font-size: 1.2rem
         }
         .cardBody {
             border: 1px solid rgb(211 211 211);
@@ -92,7 +93,6 @@
 <body>
     <div class="contaner">
         <div class="cardContainer">
-            <p class="logo">Codelab</p>
             <div class="card">
                 <div class="cardHeader">
                     <h3>Due Activity Reminder</h3>
