@@ -69,12 +69,19 @@
 }
 .contentContainer {
     display: grid;
-    grid-template-columns: 50px 1fr;
+    grid-template-columns: 30px 1fr;
     height: 100%;
     width: 100%;
+    gap: 10px;
+}
+.logo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-left: 10px
 }
 .contentContainer img {
-    width: 80%;
+    width: 50%;
     aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 5px;
