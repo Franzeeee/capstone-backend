@@ -1,4 +1,3 @@
-
 *::after, *::before, * {
     margin: 0;
     padding: 0;
@@ -41,6 +40,7 @@
     padding: 1rem;
     grid-template-rows: auto 1fr;
     box-shadow: 2px 2px 2px 0px #e3e3e38f;
+    min-height: 300px;
 }
 .classInfo {
     padding-bottom: 10px;
@@ -75,7 +75,9 @@
 }
 .content {
     padding-inline: 10px;
-
+    display: grid;
+    grid-template-rows: auto 1fr 50px;
+    gap: 5px
 }
 .instruction{
 
@@ -90,6 +92,8 @@
     color: white;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
+    transition: background-color .3s ease;
 }
 .Button:hover{
     background-color: #0b5ed7;
