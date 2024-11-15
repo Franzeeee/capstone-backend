@@ -23,7 +23,8 @@ Route::get('/send-mail', function () {
     $data = [
         'class_name' => 'Math 101',
         'due_date' => '2024-10-13',
-        // Add other data as needed
+        'activity_name' => 'Quiz 1',
+        'description' => 'This is a quiz for Math 101',
     ];
 
     $mail = new DueActivityReminderMail('diazfranzpeter@gmail.com', $data);
