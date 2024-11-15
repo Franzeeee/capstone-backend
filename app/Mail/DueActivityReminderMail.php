@@ -9,20 +9,26 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
+use Illuminate\Support\Facades\Log;
 
-
-class DueActivityReminderMail extends Mailable implements ShouldQueue
+class DueActivityReminderMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $recipientEmail;
+    public $data;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($recipientEmail)
+    public function __construct($recipientEmail, $data)
     {
         $this->recipientEmail = $recipientEmail;
+        $this->data = (array) $data;
+
+        Log::info('DueActivityReminderMail: Email queued for1 ' . $recipientEmail);
+        Log::info('DueActivityReminderMail: Email queued for2 ' . $this->data['class_name']);
+        Log::info('DueActivityReminderMail: Email queued for3 ' . $this->data['due_date']);
     }
 
     /**
@@ -42,8 +48,13 @@ class DueActivityReminderMail extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
+
         return new Content(
             view: 'emails.due-activity-reminder',
+            with: [
+                'className' => $this->data['class_name'],
+                'dueDate' => $this->data['due_date'],
+            ]
         );
     }
 
