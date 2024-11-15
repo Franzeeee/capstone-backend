@@ -28,7 +28,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border-bottom: 1.5px solid #380bff90;
+            /* border-bottom: 1.5px solid #380bff90; */
             padding: 10px;
             font-size: 1.2rem
         }
@@ -42,7 +42,6 @@
             min-height: 300px;
         }
         .classInfo {
-            padding-bottom: 10px;
             border-bottom: 1px solid rgb(184, 184, 184);
             font-weight: 500;
         }
