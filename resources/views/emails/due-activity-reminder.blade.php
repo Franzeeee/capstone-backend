@@ -29,10 +29,6 @@
             grid-template-rows: auto 1fr;
             gap: .5rem;
         }
-        .logo {
-            font-size: 1.1rem;
-            text-align: center;
-        }
         .cardHeader {
             display: flex;
             justify-content: center;
@@ -67,18 +63,9 @@
         }
         .contentContainer {
             display: grid;
-            grid-template-columns: 50px 1fr;
+            grid-template-columns: 1fr;
             height: 100%;
             width: 100%;
-        }
-        .contentContainer img {
-            width: 80%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 5px;
-            background-color: black;
-            padding: 5px;
-            border-radius: 100%;
         }
         .content {
             padding-inline: 10px;
@@ -122,9 +109,6 @@
                     <div class="activityInfo">
                         <p>Due Tomorrow</p>
                         <div class="contentContainer">
-                            <div class="logo">
-                                <img src="{{asset('icon/bell.png')}}" alt="">
-                            </div>
                             <div class="content">
                                 <div>
                                 <p>Assignment 1</p>                               

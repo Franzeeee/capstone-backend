@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
+use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Log;
 
 class DueActivityReminderMail extends Mailable
@@ -50,7 +51,7 @@ class DueActivityReminderMail extends Mailable
     {
 
         return new Content(
-            html: 'emails.due-activity-reminder',
+            markdown: 'emails.due-activity-reminder',
             with: [
                 'className' => $this->data['class_name'],
                 'dueDate' => $this->data['due_date'],
