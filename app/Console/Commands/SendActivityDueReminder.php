@@ -11,6 +11,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use DateTime;
 
 class SendActivityDueReminder extends Command
 {
@@ -54,6 +55,7 @@ class SendActivityDueReminder extends Command
 
         // Log the count of activities found
         Log::info('Found ' . $activities->count() . ' activities due in the next 24 hours.');
+        Log::info('Time: ' . $formattedNow . ' - ' . $formattedEndDate);
 
         foreach ($activities as $activity) {
             // Get the course class associated with this activity
@@ -64,13 +66,23 @@ class SendActivityDueReminder extends Command
             // Get all students associated with the course class via the pivot table (class_student)
             $students = $activity->courseClass->students;
 
+
+            function formatTimestamp($timestamp)
+            {
+                // Convert the input timestamp into a DateTime object
+                $dateTime = new DateTime($timestamp);
+
+                // Format the DateTime object into the desired format
+                return $dateTime->format('F d, Y g:i A');
+            }
+
             foreach ($students as $student) {
                 // Log the student's email instead of sending an email
                 Mail::to($student->email)->queue(new DueActivityReminderMail($student->email, [
                     'class_name' => $courseClass->name,
                     'activity_name' => $activity->title,
                     'description' => $activity->description,
-                    'due_date' => $activity->end_date,
+                    'due_date' => formatTimestamp($activity->end_date),
                 ]));
             }
             $activity->update(['dueReminder' => true]);
