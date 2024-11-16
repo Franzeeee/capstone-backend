@@ -3,9 +3,9 @@
 <head>
     <title>Test Email</title>
 </head>
-<body style="margin: 0; padding: 0; width: 100%; height: 100%; box-sizing: border-box; font-family: Arial, sans-serif;">
+<body style="margin: 0; padding: 0; width: 100%; height: 100%; box-sizing: border-box; font-family: Arial, sans-serif; display: flex; justify-content: center;">
     <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100svh; margin: 0; padding: 0;">
-        <div style="width: 50%; max-width: 600px; height: auto; padding: 20px; border: 1px solid #d3d3d3; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <div style="width: 50%; max-width: 600px; height: auto; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(98, 98, 98, 0.1);">
             <div style="display: grid; grid-template-rows: auto 1fr; gap: 0.5rem;">
                 <!-- Header -->
                 <div style="text-align: center; padding: 10px; font-size: 1.2rem; font-weight: bold;">
