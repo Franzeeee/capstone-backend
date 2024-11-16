@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class ActivitiesController extends Controller
 {
@@ -47,7 +48,7 @@ class ActivitiesController extends Controller
                 'time_limit' => $validated['time_limit'] ? (int)$validated['time_limit'] : null,
                 'point' => 100,
                 'start_date' => now(),
-                'end_date' => $validated['due_date'],
+                'end_date' => $validated['due_date'] ??  Carbon::now('Asia/Manila'),
             ]);
 
             // Prepare an array for batch insertion with timestamps
