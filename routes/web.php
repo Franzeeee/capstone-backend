@@ -28,7 +28,7 @@ Route::get('/send-mail', function () {
     ];
 
     $mail = new DueActivityReminderMail('diazfranzpeter@gmail.com', $data);
-    Mail::to('test@test.com')->send($mail);
+    Mail::to('')->send($mail);
 });
 
 Route::get('/test-send/{email}', function ($email) {
