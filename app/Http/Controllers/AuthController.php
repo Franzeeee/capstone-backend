@@ -114,7 +114,9 @@ class AuthController extends Controller
             return response(['message' => 'Unauthenticated'], Response::HTTP_UNAUTHORIZED);
         }
 
+        $request->user()->currentAccessToken()->delete();
         $cookie = Cookie::forget('jwt');
+
         return response([
             'message' => 'Successfully logged out'
         ])->withCookie($cookie);

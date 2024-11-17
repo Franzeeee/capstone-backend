@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivateLogicLesson;
 use Illuminate\Http\Request;
 use App\Models\CourseClass;
 use App\Models\ClassCode;
@@ -20,10 +21,17 @@ class CourseClassController extends Controller
 {
     public function index(Request $request)
     {
+
         // Validate the incoming request
-        $request->validate([
-            'teacher_id' => 'required|exists:users,id', // Ensure teacher_id is present and valid
+        $validated = $request->validate([
+            'teacher_id' => 'required|exists:users,id',
         ]);
+
+        // Check if the teacher exists in the users table
+        $teacher = User::find($validated['teacher_id']);
+        if (!$teacher) {
+            return response()->json(['message' => 'Teacher not found'], 404);
+        }
 
         // Fetch classes associated with the specified teacher_id
         $classes = CourseClass::where('teacher_id', $request->teacher_id)
@@ -95,6 +103,11 @@ class CourseClassController extends Controller
         ClassCodes::create([
             'class_id' => $courseClass->id,  // Associate the class code with the class
             'code' => $classCode,  // Store the generated class code
+        ]);
+
+        ActivateLogicLesson::create([
+            'class_id' => $courseClass->id,
+            'status' => 'inactive',
         ]);
 
         if ($request->subject === 'Python') {
@@ -200,7 +213,8 @@ class CourseClassController extends Controller
         }
 
         // Fetch the related CourseClass with teacher info using the class_code
-        $courseClass = CourseClass::with('teacher')->find($classCode->class_id);
+        $courseClass = CourseClass::with(['teacher', 'activeLogicLesson'])
+            ->find($classCode->class_id);
 
         // If the CourseClass does not exist, return a 404 error
         if (!$courseClass) {

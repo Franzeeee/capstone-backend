@@ -99,7 +99,7 @@ class SubmissionController extends Controller
                 ->first();
             if ($studentProgress) {
                 $studentProgress->update([
-                    'last_completed_quiz' => $lesson_id + 1,
+                    'last_completed_quiz' => $lesson_id,
                     'last_completed_lesson' => $lesson_id,
                 ]);
             }

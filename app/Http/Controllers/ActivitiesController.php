@@ -214,6 +214,8 @@ class ActivitiesController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'due_date' => 'nullable|date',
+            'final_assessment' => 'nullable|boolean',
+            'manual_checking' => 'nullable|boolean',
             'time_limit' => 'nullable|integer|min:1',
             'coding_problems' => 'required|array',
             'coding_problems.*.title' => 'required|string',
@@ -233,12 +235,12 @@ class ActivitiesController extends Controller
                 'user_id' => $validated['user_id'],
                 'title' => $validated['title'],
                 'description' => $validated['description'],
-                'final_assessment' => false,
-                'manual_checking' => false,
+                'final_assessment' => $validated['final_assessment'] ?? false,
+                'manual_checking' => $validated['manual_checking'] ?? false,
                 'time_limit' => $validated['time_limit'] ?? 100, // Use null coalescing operator
                 'point' => array_sum(array_column($validated['coding_problems'], 'points')),
                 'start_date' => now(),
-                'end_date' => null,
+                'end_date' => $validated['due_date'] ?? null,
             ]);
 
             // Delete existing coding problems
@@ -274,6 +276,9 @@ class ActivitiesController extends Controller
             'course_class_id' => 'required|exists:course_classes,id',
             'title' => 'required|string',
             'description' => 'required|string',
+            'points' => 'required|integer|min:0|max:100',
+            'final_assessment' => 'nullable|boolean',
+            'manual_checking' => 'nullable|boolean',
             'due_date' => 'nullable|date',
             'files' => 'nullable|array',
             'files.*' => 'file|mimes:doc,docx,xlsx,ppt,pptx,jpeg,jpg,png,txt',
@@ -282,29 +287,27 @@ class ActivitiesController extends Controller
         // Create the activity
         $activity = Activity::create([
             'course_class_id' => $validated['course_class_id'],
-            'user_id' => 1,
+            'user_id' => Auth::id(),
             'title' => $validated['title'],
             'description' => $validated['description'],
             'final_assessment' => false,
-            'manual_checking' => true,
+            'manual_checking' => false,
             'time_limit' => null,
-            'point' => 100,
+            'point' => $validated['points'],
             'start_date' => now(),
             'end_date' => $validated['due_date'],
         ]);
 
-        if ($request->has('files')) {
-            foreach ($request->input('files') as $file) {
-                // Access various properties of the file object
-                $originalName = $file->getClientOriginalName();  // e.g., 'document1.docx'
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $originalName = $file->getClientOriginalName();
                 $filePath = $file->store('activity_files', 's3'); // Store the file in the 's3' disk and get the path
-                $fileType = $file->getClientOriginalExtension();  // e.g., 'docx'
-                $s3Link = Storage::disk('s3')->url($filePath);   // Get the S3 link of the file
+                $fileType = $file->getClientOriginalExtension();
+                $s3Link = Storage::disk('s3')->url($filePath);
 
-                // Now you can create an entry in the ActivityFile model
                 ActivityFile::create([
-                    'activity_id' => $activity->id, // Assume this is set in your logic
-                    'file_path' => $s3Link,         // Store the S3 link
+                    'activity_id' => $activity->id,
+                    'file_path' => $s3Link,
                     'file_type' => $fileType,
                     'file_name' => $originalName,
                 ]);
@@ -313,6 +316,7 @@ class ActivitiesController extends Controller
 
         return response()->json(['message' => 'Activity created successfully!'], 201);
     }
+
     public function fetchAllActivityWithStudentSubmission($classId, $studentId)
     {
 

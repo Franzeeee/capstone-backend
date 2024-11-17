@@ -61,4 +61,9 @@ class CourseClass extends Model
     {
         return $this->hasMany(Grade::class);
     }
+
+    public function activeLogicLesson()
+    {
+        return $this->hasOne(ActivateLogicLesson::class, 'class_id');
+    }
 }

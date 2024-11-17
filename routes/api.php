@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivateLogicLessonController;
 use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompilerController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubmissionFileController;
 use App\Http\Controllers\ScheduleController;
+use App\Models\ActivateLogicLesson;
 use Illuminate\Support\Facades\Route;
 
 
@@ -116,10 +118,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/code/{code}/id', [CourseClassController::class, 'fetchClassId']);
 
     Route::get('/teacher/class/all', [CourseClassController::class, 'fetchTeacherClasses']);
+    Route::get('/classes/{studentId}/fetch', [CourseClassController::class, 'fetchUserClasses']);
+    Route::get('/class/{classId}/student/average', [CourseClassController::class, 'fetchAvgStudentScores']);
+    Route::get('/class/{teacherId}/score/average', [CourseClassController::class, 'fetchClassAverages']);
+
+    Route::get('class/{id}/activate-logic', [ActivateLogicLessonController::class, 'update']);
+    Route::get('class/{id}/deactivate-logic', [ActivateLogicLessonController::class, 'deactivate']);
+    Route::get('class/{id}/logic-status', [ActivateLogicLessonController::class, 'status']);
 });
-Route::get('/classes/{studentId}/fetch', [CourseClassController::class, 'fetchUserClasses']);
-Route::get('/class/{classId}/student/average', [CourseClassController::class, 'fetchAvgStudentScores']);
-Route::get('/class/{teacherId}/score/average', [CourseClassController::class, 'fetchClassAverages']);
 
 
 
