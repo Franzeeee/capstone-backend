@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\CodingProblem;
 use App\Models\ActivityFile;
+use App\Models\CourseClass;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -48,7 +50,32 @@ class ActivitiesController extends Controller
                 'time_limit' => $validated['time_limit'] ? (int)$validated['time_limit'] : null,
                 'point' => 100,
                 'start_date' => now(),
-                'end_date' => $validated['due_date'] ??  Carbon::now('Asia/Manila'),
+                'end_date' => $validated['due_date'] ??  null,
+            ]);
+
+            $students = CourseClass::find($validated['course_class_id'])->students;
+            $class = CourseClass::find($validated['course_class_id']);
+
+            foreach ($students as $student) {
+                Schedule::create([
+                    'user_id' => $student->id,
+                    'title' => $validated['title'],
+                    'description' => "Activity in " . $class->name . " class",
+                    'start_date' => Carbon::now()->toDateString(),
+                    'end_date' => Carbon::parse($validated['due_date'])->toDateString() ?? null,
+                    'start_time' => Carbon::now()->toTimeString(),
+                    'end_time' => Carbon::parse($validated['due_date'])->toTimeString() ?? null,
+                ]);
+            }
+
+            Schedule::create([
+                'user_id' => $validated['user_id'],
+                'title' => $validated['title'],
+                'description' => "Activity in " . $class->name . " class",
+                'start_date' => Carbon::now()->toDateString(),
+                'end_date' => Carbon::parse($validated['due_date'])->toDateString() ?? null,
+                'start_time' => Carbon::now()->toTimeString(),
+                'end_time' => Carbon::parse($validated['due_date'])->toTimeString() ?? null,
             ]);
 
             // Prepare an array for batch insertion with timestamps
