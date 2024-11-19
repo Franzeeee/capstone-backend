@@ -16,6 +16,7 @@ use Database\Seeders\WebAssessmentSeeder;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Submission;
 use App\Models\Activity;
+use Laravel\Prompts\Progress;
 
 class CourseClassController extends Controller
 {
@@ -284,6 +285,20 @@ class CourseClassController extends Controller
         if (!$student) {
             return response()->json(['message' => 'Student not found'], 404);
         }
+
+        Grade::where('student_id', $student->id)
+            ->where('class_id', $courseClass->id)
+            ->delete();
+
+        Submission::where('student_id', $student->id)
+            ->whereHas('activity', function ($query) use ($courseClass) {
+                $query->where('course_class_id', $courseClass->id);
+            })
+            ->delete();
+
+        StudentProgress::where('student_id', $student->id)
+            ->where('course_class_id', $courseClass->id)
+            ->delete();
 
         // Detach the student from the class
         $courseClass->students()->detach($student->id);
