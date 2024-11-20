@@ -147,6 +147,34 @@ class CourseClassController extends Controller
         return $classCode;
     }
 
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'class_id' => 'required|exists:course_classes,id',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'schedule' => 'nullable|string|max:255',
+            'room' => 'nullable|string|max:255',
+            'section' => 'nullable|string|max:255',
+        ]);
+
+        $courseClass = CourseClass::find($validated['class_id']);
+
+        if (!$courseClass) {
+            return response()->json(['message' => 'Class not found'], 404);
+        }
+
+        $courseClass->update([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'schedule' => $validated['schedule'],
+            'room' => $validated['room'],
+            'section' => $validated['section'],
+        ]);
+
+        return response()->json(['message' => 'Class updated successfully'], 200);
+    }
+
     public function joinClass(Request $request)
     {
         // Validate that the class code and student ID are provided
@@ -215,6 +243,7 @@ class CourseClassController extends Controller
 
         // Fetch the related CourseClass with teacher info using the class_code
         $courseClass = CourseClass::with(['teacher.profile', 'activeLogicLesson'])
+            ->withCount('students')
             ->find($classCode->class_id);
 
         // If the CourseClass does not exist, return a 404 error

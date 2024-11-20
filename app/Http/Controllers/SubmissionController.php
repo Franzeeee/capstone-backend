@@ -175,10 +175,12 @@ class SubmissionController extends Controller
             // Fetch submission feedback
             $feedback = SubmissionFeedback::where('submission_id', $submission->id)->first();
             $cheatingRecord = CheatingRecord::where('submission_id', $submission->id)->first();
+            $codingProblemSubmissions = CodingProblemSubmission::where('submission_id', $submission->id)->get();
 
             return response()->json([
                 'exists' => true,
                 'data' => $submission,
+                'coding_problem_submissions' => $codingProblemSubmissions,
                 'rank' => $rank,
                 'total_submissions' => $totalSubmissions,
                 'feedback' => $feedback,
