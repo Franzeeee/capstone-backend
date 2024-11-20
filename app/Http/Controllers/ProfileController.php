@@ -81,6 +81,12 @@ class ProfileController extends Controller
         // Validate the incoming request
         $request->validate([
             'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'suffix' => 'nullable|string|max:255',
+            'birthdate' => 'nullable|date',
+            'gender' => 'nullable|string|max:255',
         ]);
 
         // Get the authenticated user
@@ -88,6 +94,12 @@ class ProfileController extends Controller
 
         // Update the user's information
         $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->middle_name = $request->middle_name;
+        $user->last_name = $request->last_name;
+        $user->suffix = $request->suffix;
+        $user->birthdate = $request->birthdate;
+        $user->gender = $request->gender;
 
         // Save the user with the new information
         $user->save();

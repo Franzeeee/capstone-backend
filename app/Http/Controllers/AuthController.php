@@ -19,6 +19,10 @@ class AuthController extends Controller
 
         $validated = $request->validate([
             'name' => 'required',
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'suffix' => 'nullable|string|max:255',
             'email' => 'required|unique:users,email',
             'password' => 'required',
             'role' => 'required',
@@ -27,6 +31,10 @@ class AuthController extends Controller
 
         $user = User::create([
             'name' => $validated['name'],
+            'first_name' => $validated['first_name'],
+            'middle_name' => $validated['middle_name'],
+            'last_name' => $validated['last_name'],
+            'suffix' => $validated['suffix'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'role' => $validated['role'],

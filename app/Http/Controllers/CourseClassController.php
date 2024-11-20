@@ -214,7 +214,7 @@ class CourseClassController extends Controller
         }
 
         // Fetch the related CourseClass with teacher info using the class_code
-        $courseClass = CourseClass::with(['teacher', 'activeLogicLesson'])
+        $courseClass = CourseClass::with(['teacher.profile', 'activeLogicLesson'])
             ->find($classCode->class_id);
 
         // If the CourseClass does not exist, return a 404 error
