@@ -286,6 +286,31 @@ class ActivitiesController extends Controller
                 ];
             }, $validated['coding_problems']);
 
+            $studet = CourseClass::find($validated['course_class_id'])->students;
+            $class = CourseClass::find($validated['course_class_id']);
+
+            foreach ($studet as $student) {
+                Schedule::create([
+                    'user_id' => $student->id,
+                    'title' => $validated['title'],
+                    'description' => "Activity in " . $class->name . " class",
+                    'start_date' => Carbon::now()->toDateString(),
+                    'end_date' => Carbon::parse($validated['due_date'])->toDateString() ?? null,
+                    'start_time' => Carbon::now()->toTimeString(),
+                    'end_time' => Carbon::parse($validated['due_date'])->toTimeString() ?? null,
+                ]);
+            }
+
+            Schedule::create([
+                'user_id' => $validated['user_id'],
+                'title' => $validated['title'],
+                'description' => "Activity in " . $class->name . " class",
+                'start_date' => Carbon::now()->toDateString(),
+                'end_date' => Carbon::parse($validated['due_date'])->toDateString() ?? null,
+                'start_time' => Carbon::now()->toTimeString(),
+                'end_time' => Carbon::parse($validated['due_date'])->toTimeString() ?? null,
+            ]);
+
             // Insert all coding problems in one query
             CodingProblem::insert($codingProblemsData);
         });
