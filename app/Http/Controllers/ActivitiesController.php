@@ -240,7 +240,7 @@ class ActivitiesController extends Controller
             'course_class_id' => 'required|exists:course_classes,id',
             'title' => 'required|string',
             'description' => 'required|string',
-            'due_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
             'final_assessment' => 'nullable|boolean',
             'manual_checking' => 'nullable|boolean',
             'time_limit' => 'nullable|integer|min:1',
@@ -267,7 +267,7 @@ class ActivitiesController extends Controller
                 'time_limit' => $validated['time_limit'] ?? 100, // Use null coalescing operator
                 'point' => array_sum(array_column($validated['coding_problems'], 'points')),
                 'start_date' => now(),
-                'end_date' => $validated['due_date'] ?? null,
+                'end_date' => $validated['end_date'] ?? null,
             ]);
 
             // Delete existing coding problems
@@ -295,9 +295,9 @@ class ActivitiesController extends Controller
                     'title' => $validated['title'],
                     'description' => "Activity in " . $class->name . " class",
                     'start_date' => Carbon::now()->toDateString(),
-                    'end_date' => Carbon::parse($validated['due_date'])->toDateString() ?? null,
+                    'end_date' => Carbon::parse($validated['end_date'])->toDateString() ?? null,
                     'start_time' => Carbon::now()->toTimeString(),
-                    'end_time' => Carbon::parse($validated['due_date'])->toTimeString() ?? null,
+                    'end_time' => Carbon::parse($validated['end_date'])->toTimeString() ?? null,
                 ]);
             }
 
@@ -306,9 +306,9 @@ class ActivitiesController extends Controller
                 'title' => $validated['title'],
                 'description' => "Activity in " . $class->name . " class",
                 'start_date' => Carbon::now()->toDateString(),
-                'end_date' => Carbon::parse($validated['due_date'])->toDateString() ?? null,
+                'end_date' => Carbon::parse($validated['end_date'])->toDateString() ?? null,
                 'start_time' => Carbon::now()->toTimeString(),
-                'end_time' => Carbon::parse($validated['due_date'])->toTimeString() ?? null,
+                'end_time' => Carbon::parse($validated['end_date'])->toTimeString() ?? null,
             ]);
 
             // Insert all coding problems in one query
