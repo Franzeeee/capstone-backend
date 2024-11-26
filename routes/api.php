@@ -10,6 +10,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\StudentProgressController;
 use App\Http\Controllers\ActivitiesController;
 use App\Http\Controllers\ActivityFileController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionController;
@@ -126,6 +127,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('class/{id}/activate-logic', [ActivateLogicLessonController::class, 'update']);
     Route::get('class/{id}/deactivate-logic', [ActivateLogicLessonController::class, 'deactivate']);
     Route::get('class/{id}/logic-status', [ActivateLogicLessonController::class, 'status']);
+
+    Route::post('/class/certificate/issue', [CertificateController::class, 'issueCertificate']);
+    Route::get('/class/certificate/status/{classId}', [CertificateController::class, 'checkStatus']);
 });
 
 

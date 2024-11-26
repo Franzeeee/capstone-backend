@@ -66,4 +66,9 @@ class CourseClass extends Model
     {
         return $this->hasOne(ActivateLogicLesson::class, 'class_id');
     }
+
+    public function certificate()
+    {
+        return $this->hasOne(Certificate::class);
+    }
 }
