@@ -71,4 +71,9 @@ class CourseClass extends Model
     {
         return $this->hasOne(Certificate::class);
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'class_id');
+    }
 }

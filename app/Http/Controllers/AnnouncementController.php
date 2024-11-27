@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
@@ -36,6 +37,20 @@ class AnnouncementController extends Controller
         // Fetch the teacher and course class data
         $teacher = $announcement->courseClass->teacher;
         $courseClass = $announcement->courseClass;
+        $students = $courseClass->students;
+
+        // Notify all students in the class
+        foreach ($students as $student) {
+            Notification::create([
+                'user_id' => $student->id,
+                'message' => 'Your teacher posted a new announcement in ' . $courseClass->name . ($courseClass->section ? ' (' . $courseClass->section . ')' : ''),
+                'status' => false,
+                'type' => 'announcement',
+                'class_id' => $courseClass->id,
+                'class_name' => $courseClass->name,
+                'class_section' => $courseClass->section,
+            ]);
+        }
 
         return response()->json([
             'message' => 'Announcement created successfully!',

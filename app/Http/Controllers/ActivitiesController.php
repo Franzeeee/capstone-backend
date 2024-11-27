@@ -11,8 +11,10 @@ use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+
 
 class ActivitiesController extends Controller
 {
@@ -77,6 +79,19 @@ class ActivitiesController extends Controller
                 'start_time' => Carbon::now()->toTimeString(),
                 'end_time' => Carbon::parse($validated['due_date'])->toTimeString() ?? null,
             ]);
+
+            // Notify all students in the class
+            foreach ($students as $student) {
+                Notification::create([
+                    'user_id' => $student->id,
+                    'message' => 'Your teacher posted a new assessment in ' . $class->name . ($class->section ? ' (' . $class->section . ')' : ''),
+                    'status' => false,
+                    'type' => 'assessment',
+                    'class_id' => $class->id,
+                    'class_name' => $class->name,
+                    'class_section' => $class->section,
+                ]);
+            }
 
             // Prepare an array for batch insertion with timestamps
             $codingProblemsData = array_map(function ($problemData) use ($activity) {
@@ -365,6 +380,43 @@ class ActivitiesController extends Controller
                 ]);
             }
         }
+
+        $students = CourseClass::find($validated['course_class_id'])->students;
+        $class = CourseClass::find($validated['course_class_id']);
+
+        foreach ($students as $student) {
+            Schedule::create([
+                'user_id' => $student->id,
+                'title' => $validated['title'],
+                'description' => "Activity in " . $class->name . " class",
+                'start_date' => Carbon::now()->toDateString(),
+                'end_date' => Carbon::parse($validated['due_date'])->toDateString() ?? null,
+                'start_time' => Carbon::now()->toTimeString(),
+                'end_time' => Carbon::parse($validated['due_date'])->toTimeString() ?? null,
+            ]);
+
+            Notification::create([
+                'user_id' => $student->id,
+                'message' => 'Your teacher posted a new assessment in ' . $class->name . ($class->section ? ' (' . $class->section . ')' : ''),
+                'status' => false,
+                'type' => 'assessment',
+                'class_id' => $class->id,
+                'class_name' => $class->name,
+                'class_section' => $class->section,
+            ]);
+        }
+
+        Schedule::create([
+            'user_id' => $validated['user_id'],
+            'title' => $validated['title'],
+            'description' => "Activity in " . $class->name . " class",
+            'start_date' => Carbon::now()->toDateString(),
+            'end_date' => Carbon::parse($validated['due_date'])->toDateString() ?? null,
+            'start_time' => Carbon::now()->toTimeString(),
+            'end_time' => Carbon::parse($validated['due_date'])->toTimeString() ?? null,
+        ]);
+
+
 
         return response()->json(['message' => 'Activity created successfully!'], 201);
     }

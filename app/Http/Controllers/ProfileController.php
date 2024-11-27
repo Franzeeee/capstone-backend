@@ -95,9 +95,9 @@ class ProfileController extends Controller
         // Update the user's information
         $user->name = $request->name;
         $user->first_name = $request->first_name;
-        $user->middle_name = $request->middle_name;
+        $user->middle_name = $request->middle_name  || "";
         $user->last_name = $request->last_name;
-        $user->suffix = $request->suffix;
+        $user->suffix = $request->suffix || "";
         $user->birthdate = $request->birthdate;
         $user->gender = $request->gender;
 

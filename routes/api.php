@@ -16,7 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubmissionFileController;
 use App\Http\Controllers\ScheduleController;
-use App\Models\ActivateLogicLesson;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login'])->name('login')->middleware('throttle:login');;
+Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -130,6 +130,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/class/certificate/issue', [CertificateController::class, 'issueCertificate']);
     Route::get('/class/certificate/status/{classId}', [CertificateController::class, 'checkStatus']);
+
+    Route::post('/notification/create', [NotificationController::class, 'createNotification']);
+    Route::get('/notification/{id}/fetch', [NotificationController::class, 'fetchNotifications']);
+    Route::get('/notification/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
+    Route::get('/notification/{id}/delete', [NotificationController::class, 'deleteNotification']);
 });
 
 
