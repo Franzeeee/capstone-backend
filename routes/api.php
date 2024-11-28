@@ -65,16 +65,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/student/remove', [CourseClassController::class, 'removeStudent']);
     Route::post('/class/update-grade-distribution', [CourseClassController::class, 'updateGradeDistribution']);
 
-    Route::post('activity/create', [ActivitiesController::class, 'store']);
-    Route::get('activity/{id}/all', [ActivitiesController::class, 'getClassActivities']);
-    Route::get('activity/{id}/delete', [ActivitiesController::class, 'deleteActivity']);
-    Route::put('activity/{id}/update', [ActivitiesController::class, 'updateActivity']);
+    Route::post('activity/create', [ActivitiesController::class, 'store'])->name('activities.store');
+    Route::get('activity/{id}/all', [ActivitiesController::class, 'getClassActivities'])->name('activities.getClassActivities');
+    Route::get('activity/{id}/delete', [ActivitiesController::class, 'deleteActivity'])->name('activities.delete');
+    Route::put('activity/{id}/update', [ActivitiesController::class, 'updateActivity'])->name('activities.update');
 
-    Route::get('/activities/{id}/basic', [ActivitiesController::class, 'getCodingActivity']);
-    Route::get('/activities/{id}/coding', [ActivitiesController::class, 'fetchActivityWithoutProblems']);
-    Route::get('/activity/{id}/auth', [ActivitiesController::class, 'checkActivityAuth']);
-    Route::get('/activity/default/{classId}', [ActivitiesController::class, 'fetchDefaultActivities']);
-    Route::get('activity/{classId}/fetch', [ActivitiesController::class, 'fetchGetPaginatedActivities']);
+    Route::get('/activities/{id}/basic', [ActivitiesController::class, 'getCodingActivity'])->name('activities.getCodingActivity');
+    Route::get('/activities/{id}/coding', [ActivitiesController::class, 'fetchActivityWithoutProblems'])->name('activities.fetchActivityWithoutProblems');
+    Route::get('/activity/{id}/auth', [ActivitiesController::class, 'checkActivityAuth'])->name('activities.checkActivityAuth');
+    Route::get('/activity/default/{classId}', [ActivitiesController::class, 'fetchDefaultActivities'])->name('activities.fetchDefaultActivities');
+    Route::get('activity/{classId}/fetch', [ActivitiesController::class, 'fetchGetPaginatedActivities'])->name('activities.fetchGetPaginatedActivities');
 
     Route::post('submission/create', [SubmissionController::class, 'store']);
     Route::get('/submission/{activityId}/{userId}', [SubmissionController::class, 'fetchSubmission']);

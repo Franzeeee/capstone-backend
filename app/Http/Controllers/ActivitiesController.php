@@ -49,7 +49,7 @@ class ActivitiesController extends Controller
                 'description' => $validated['description'],
                 'final_assessment' => $validated['final_assessment'] ?? false,
                 'manual_checking' => $validated['manual_checking'] ?? false,
-                'time_limit' => $validated['time_limit'] ? (int)$validated['time_limit'] : null,
+                'time_limit' => isset($validated['time_limit']) ? (int)$validated['time_limit'] : null,
                 'point' => 100,
                 'start_date' => now(),
                 'end_date' => $validated['due_date'] ??  null,

@@ -122,6 +122,20 @@ class AiController extends Controller
             SampleInput: Sample Input Here
             SampleOutput: Sample Output Here
 
+            If the problem they want to generate is about web, in the sample output always include the html boilerplate. and use internal css if it need styling and they dont specify if it needs to be inline css.
+
+            Sample Output: <! DOCTYPE html>
+            <html>
+            <head>
+            <style>
+            /* Internal CSS Here */
+            </style>
+            </head>
+            <body>
+            <h1>Sample Output</h1>
+            </body>
+            </html>
+
             PS. If the title and description is just jarble or not ano valid topic, just return no valid topic. Populate the formata with Invalid if the title and description is invalid or not clear, dont make up.
         ";
 
