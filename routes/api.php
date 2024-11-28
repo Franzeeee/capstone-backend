@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login'])->name('login')->middleware('throttle:login');
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -76,8 +76,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/activity/default/{classId}', [ActivitiesController::class, 'fetchDefaultActivities']);
     Route::get('activity/{classId}/fetch', [ActivitiesController::class, 'fetchGetPaginatedActivities']);
 
-
-
     Route::post('submission/create', [SubmissionController::class, 'store']);
     Route::get('/submission/{activityId}/{userId}', [SubmissionController::class, 'fetchSubmission']);
     Route::get('/submission/all', [SubmissionController::class, 'all']);
@@ -85,7 +83,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('activity/submission/{id}/delete', [SubmissionController::class, 'deleteSubmission']);
 
     Route::post('submission/update', [SubmissionController::class, 'updateCodingSubmission']);
-
 
     Route::post('announcement', [AnnouncementController::class, 'store']);
     Route::get('announcement/fetch', [AnnouncementController::class, 'fetchAllAnnouncements']);
@@ -124,9 +121,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/class/{classId}/student/average', [CourseClassController::class, 'fetchAvgStudentScores']);
     Route::get('/class/{teacherId}/score/average', [CourseClassController::class, 'fetchClassAverages']);
 
-    Route::get('class/{id}/activate-logic', [ActivateLogicLessonController::class, 'update']);
-    Route::get('class/{id}/deactivate-logic', [ActivateLogicLessonController::class, 'deactivate']);
-    Route::get('class/{id}/logic-status', [ActivateLogicLessonController::class, 'status']);
+    Route::get('class/{id}/activate-logic', [ActivateLogicLessonController::class, 'update'])->name('activateLogicLesson.update');
+    Route::get('class/{id}/deactivate-logic', [ActivateLogicLessonController::class, 'deactivate'])->name('activateLogicLesson.deactivate');
+    Route::get('class/{id}/logic-status', [ActivateLogicLessonController::class, 'status'])->name('activateLogicLesson.status');
 
     Route::post('/class/certificate/issue', [CertificateController::class, 'issueCertificate']);
     Route::get('/class/certificate/status/{classId}', [CertificateController::class, 'checkStatus']);

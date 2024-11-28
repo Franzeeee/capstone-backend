@@ -25,6 +25,6 @@ class CodingProblemSubmission extends Model
     // Relationship with CodingProblem
     public function codingProblem()
     {
-        return $this->belongsTo(CodingProblem::class);
+        return $this->belongsTo(CodingProblem::class, 'problem_id');
     }
 }

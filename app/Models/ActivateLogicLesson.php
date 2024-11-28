@@ -19,6 +19,6 @@ class ActivateLogicLesson extends Model
 
     public function courseClass()
     {
-        return $this->belongsTo(CourseClass::class);
+        return $this->belongsTo(CourseClass::class, 'class_id');
     }
 }

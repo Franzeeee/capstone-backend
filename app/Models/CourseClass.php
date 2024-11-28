@@ -59,7 +59,7 @@ class CourseClass extends Model
     }
     public function grades()
     {
-        return $this->hasMany(Grade::class);
+        return $this->hasMany(Grade::class, 'class_id');
     }
 
     public function activeLogicLesson()

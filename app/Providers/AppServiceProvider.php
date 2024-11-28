@@ -28,7 +28,16 @@ class AppServiceProvider extends ServiceProvider
         }
 
         RateLimiter::for('login', function (Request $request) {
-            return Limit::perMinutes(5, 5)->by($request->ip());
+            // Retrieve the number of attempts for the user/IP
+            $attempts = RateLimiter::attempts($request->ip());
+
+            // First attempt: 1-minute limit
+            if ($attempts <= 1) {
+                return Limit::perMinutes(1, 3)->by($request->ip());
+            }
+
+            // Subsequent attempts: 5-minute limit after failure
+            return Limit::perMinutes(5, 3)->by($request->ip());
         });
     }
 }

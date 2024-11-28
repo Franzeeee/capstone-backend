@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('submission_feedback', function (Blueprint $table) {
             $table->id();
             $table->foreignId('submission_id')->constrained()->onDelete('cascade');
-            $table->text('feedback');
+            $table->text('feedback')->nullable();
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations.clear
      */
     public function down(): void
     {

@@ -25,6 +25,6 @@ class CodingProblem extends Model
 
     public function codingProblemSubmissions()
     {
-        return $this->hasMany(CodingProblemSubmission::class);
+        return $this->hasMany(CodingProblemSubmission::class, 'problem_id');
     }
 }

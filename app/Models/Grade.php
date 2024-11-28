@@ -18,11 +18,11 @@ class Grade extends Model
 
     public function student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'student_id');
     }
 
     public function courseClass()
     {
-        return $this->belongsTo(CourseClass::class);
+        return $this->belongsTo(CourseClass::class, 'class_id');
     }
 }
