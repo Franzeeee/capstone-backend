@@ -63,4 +63,16 @@ class NotificationController extends Controller
             'message' => 'Notification deleted successfully'
         ], 200);
     }
+
+    public function deleteAllNotifications($id)
+    {
+        $notifications = Notification::where('user_id', $id)->get();
+        foreach ($notifications as $notification) {
+            $notification->delete();
+        }
+
+        return response()->json([
+            'message' => 'All notifications deleted successfully'
+        ], 200);
+    }
 }

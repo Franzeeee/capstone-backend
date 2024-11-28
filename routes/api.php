@@ -135,6 +135,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/notification/{id}/fetch', [NotificationController::class, 'fetchNotifications']);
     Route::get('/notification/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
     Route::get('/notification/{id}/delete', [NotificationController::class, 'deleteNotification']);
+    Route::get('/notification/{id}/deleteAll', [NotificationController::class, 'deleteAllNotifications']);
 });
 
 
