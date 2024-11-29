@@ -17,7 +17,7 @@ class ActivityFactory extends Factory
         return [
             'course_class_id' => CourseClass::factory(), // Create a related CourseClass
             'user_id' => User::factory(), // Create a related User
-            'title' => $this->faker->word(),
+            'title' => $this->faker->word,
             'description' => $this->faker->sentence(),
             'default' => $this->faker->boolean(),
             'lessonId' => $this->faker->randomNumber(),

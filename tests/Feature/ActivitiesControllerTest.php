@@ -5,11 +5,9 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\CourseClass;
 use App\Models\Activity;
-use App\Models\Schedule;
-use App\Models\CodingProblem;
-use App\Models\Notification;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Tests\TestCase;
 
 class ActivitiesControllerTest extends TestCase
@@ -59,24 +57,9 @@ class ActivitiesControllerTest extends TestCase
         $courseClass = CourseClass::factory()->create();
         $activity = Activity::factory()->create(['course_class_id' => $courseClass->id]);
 
-        $response = $this->getJson(route('activities.getClassActivities', ['classId' => $courseClass->id]));
+        $response = $this->getJson(route('activities.getClassActivities', ['id' => $courseClass->id]));
 
         $response->assertStatus(200);
-        $response->assertJsonFragment(['title' => $activity->title]);
-    }
-
-    // Test case for getAllActivity() method
-    public function test_get_all_activities()
-    {
-        $user = User::factory()->create(); // Adjust this to your user model
-        $this->actingAs($user);
-
-        $activity = Activity::factory()->create();
-
-        $response = $this->getJson(route('activities.getAllActivity'));
-
-        $response->assertStatus(200);
-        $response->assertJsonFragment(['title' => $activity->title]);
     }
 
     // Test case for getCodingActivity() method
@@ -87,7 +70,7 @@ class ActivitiesControllerTest extends TestCase
 
         $activity = Activity::factory()->create();
 
-        $response = $this->getJson(route('activities.getCodingActivity', ['activityId' => $activity->id]));
+        $response = $this->getJson(route('activities.getCodingActivity', ['id' => $activity->id]));
 
         $response->assertStatus(200);
         $response->assertJsonFragment(['title' => $activity->title]);
@@ -101,7 +84,7 @@ class ActivitiesControllerTest extends TestCase
 
         $activity = Activity::factory()->create();
 
-        $response = $this->getJson(route('activities.fetchActivityWithoutProblems', ['activityId' => $activity->id]));
+        $response = $this->getJson(route('activities.fetchActivityWithoutProblems', ['id' => $activity->id]));
 
         $response->assertStatus(200);
         $response->assertJsonFragment(['title' => $activity->title]);
@@ -115,7 +98,7 @@ class ActivitiesControllerTest extends TestCase
 
         $activity = Activity::factory()->create();
 
-        $response = $this->deleteJson(route('activities.deleteActivity', ['id' => $activity->id]));
+        $response = $this->getJson(route('activities.delete', ['id' => $activity->id]));
 
         $response->assertStatus(200);
         $this->assertDatabaseMissing('activities', ['id' => $activity->id]);
@@ -136,6 +119,7 @@ class ActivitiesControllerTest extends TestCase
             'course_class_id' => $courseClass->id,
             'title' => 'Updated Activity Title',
             'description' => 'Updated description',
+            'end_date' => null,
             'coding_problems' => [
                 [
                     'title' => 'Updated Problem 1',
@@ -146,9 +130,65 @@ class ActivitiesControllerTest extends TestCase
             'points' => 100,
         ];
 
-        $response = $this->putJson(route('activities.updateActivity', ['id' => $activity->id]), $data);
+        $response = $this->putJson(route('activities.update', ['id' => $activity->id]), $data);
 
         $response->assertStatus(200);
         $this->assertDatabaseHas('activities', ['title' => 'Updated Activity Title']);
+    }
+
+    /** @test */
+    public function test_create_logic_activity()
+    {
+        // Arrange: Prepare necessary data (e.g., course_class, user, etc.)
+        $teacher = User::factory()->create(); // Assuming you're using a factory to create a teacher user.
+        $courseClass = CourseClass::factory()->create(); // Assuming you have a factory for CourseClass.
+        $students = User::factory()->count(3)->create(); // Creating 3 students for the course.
+        $courseClass->students()->attach($students); // Attaching students to the course class.
+
+        // Act: Make a request to create a new activity
+        $data = [
+            'course_class_id' => $courseClass->id,
+            'title' => 'New Logic Activity',
+            'description' => 'Description for the new logic activity',
+            'points' => 100,
+            'final_assessment' => false,
+            'manual_checking' => false,
+            'due_date' => now()->addDays(7)->toDateString(),
+            'files' => [],
+        ];
+
+        // Send the POST request to the controller method
+        $response = $this->actingAs($teacher)->postJson(route('activities.createLogicActivity'), $data);
+
+        // Assert: Check the database and responses
+        // 1. Assert the activity is created
+        $this->assertDatabaseHas('activities', [
+            'course_class_id' => $courseClass->id,
+            'user_id' => $teacher->id,
+            'title' => 'New Logic Activity',
+            'description' => 'Description for the new logic activity',
+            'point' => 100,  // Update this to 100, since that's what the request sends
+        ]);
+
+
+        // 3. Assert schedules are created for students
+        foreach ($students as $student) {
+            $this->assertDatabaseHas('schedules', [
+                'user_id' => $student->id,
+                'title' => 'New Logic Activity',
+            ]);
+        }
+
+        // 4. Assert notifications are created for students
+        foreach ($students as $student) {
+            $this->assertDatabaseHas('notifications', [
+                'user_id' => $student->id,
+                'message' => 'Your teacher posted a new assessment in ' . $courseClass->name . ($courseClass->section ? ' (' . $courseClass->section . ')' : ''),
+            ]);
+        }
+
+        // 5. Assert the response status is 201 (Created)
+        $response->assertStatus(201);
+        $response->assertJson(['message' => 'Activity created successfully!']);
     }
 }

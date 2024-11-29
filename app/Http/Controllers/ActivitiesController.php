@@ -407,7 +407,7 @@ class ActivitiesController extends Controller
         }
 
         Schedule::create([
-            'user_id' => $validated['user_id'],
+            'user_id' => Auth::id(),
             'title' => $validated['title'],
             'description' => "Activity in " . $class->name . " class",
             'start_date' => Carbon::now()->toDateString(),

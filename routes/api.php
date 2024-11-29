@@ -46,24 +46,24 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/update/contact-info', [ProfileController::class, 'updateContactInfo']);
     Route::post('/update/password', [ProfileController::class, 'updatePassword']);
 
-    Route::post('receiveMessage', [AiController::class, 'index']);
-    Route::get('generateAssessment', [AiController::class, 'generateAssessment']);
-    Route::post('submission/autocheck', [AiController::class, 'activityAutoCheck']);
+    Route::post('receiveMessage', [AiController::class, 'index'])->name('ai.index');
+    Route::get('generateAssessment', [AiController::class, 'generateAssessment'])->name('ai.generateAssessment');
+    Route::post('submission/autocheck', [AiController::class, 'activityAutoCheck'])->name('ai.activityAutoCheck');
 
-    Route::get('fetchCompilerToken', [CompilerController::class, 'getToken']);
+    Route::get('fetchCompilerToken', [CompilerController::class, 'getToken'])->name('compiler.getToken');
 
-    Route::post('class/create', [CourseClassController::class, 'createClass']);
-    Route::delete('class/{classId}/delete', [CourseClassController::class, 'deleteClass']);
+    Route::post('class/create', [CourseClassController::class, 'createClass'])->name('class.create');
+    Route::delete('class/{classId}/delete', [CourseClassController::class, 'deleteClass'])->name('class.delete');
 
     Route::get('classes', [CourseClassController::class, 'index']);
     Route::get('class/all', [CourseClassController::class, 'allClasses']);
-    Route::post('class/update', [CourseClassController::class, 'update']);
-    Route::post('class/join', [CourseClassController::class, 'joinClass']);
-    Route::get('class/{code}', [CourseClassController::class, 'fetchClassInfo']);
-    Route::get('class/{id}/students', [CourseClassController::class, 'fetchClassStudents']);
-    Route::get('student/{id}/classes', [StudentController::class, 'fetchStudentClasses']);
-    Route::post('/student/remove', [CourseClassController::class, 'removeStudent']);
-    Route::post('/class/update-grade-distribution', [CourseClassController::class, 'updateGradeDistribution']);
+    Route::post('class/update', [CourseClassController::class, 'update'])->name('class.update');
+    Route::post('class/join', [CourseClassController::class, 'joinClass'])->name('class.join');
+    Route::get('class/{code}', [CourseClassController::class, 'fetchClassInfo'])->name('class.fetchClassInfo');
+    Route::get('class/{id}/students', [CourseClassController::class, 'fetchClassStudents'])->name('class.fetchClassStudents');
+    Route::get('student/{id}/classes', [StudentController::class, 'fetchStudentClasses'])->name('student.fetchStudentClasses');
+    Route::post('/student/remove', [CourseClassController::class, 'removeStudent'])->name('class.removeStudent');
+    Route::post('/class/update-grade-distribution', [CourseClassController::class, 'updateGradeDistribution'])->name('class.updateGradeDistribution');
 
     Route::post('activity/create', [ActivitiesController::class, 'store'])->name('activities.store');
     Route::get('activity/{id}/all', [ActivitiesController::class, 'getClassActivities'])->name('activities.getClassActivities');
@@ -84,9 +84,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('submission/update', [SubmissionController::class, 'updateCodingSubmission']);
 
-    Route::post('announcement', [AnnouncementController::class, 'store']);
-    Route::get('announcement/fetch', [AnnouncementController::class, 'fetchAllAnnouncements']);
-    Route::get('announcement/delete/{id}', [AnnouncementController::class, 'deleteAnnouncement']);
+    Route::post('announcement', [AnnouncementController::class, 'store'])->name('announcements.store');
+    Route::get('announcement/fetch', [AnnouncementController::class, 'fetchAllAnnouncements'])->name('announcements.fetchAllAnnouncements');
+    Route::get('announcement/delete/{id}', [AnnouncementController::class, 'deleteAnnouncement'])->name('announcements.delete');
 
 
     Route::get('student/{classId}/progress', [StudentProgressController::class, 'index']);
@@ -98,16 +98,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('activity/{activitId}/rankings', [SubmissionController::class, 'fetchSubmissionRanking']);
 
-    Route::post('activity/logic/upload', [ActivitiesController::class, 'createLogicActivity']);
+    Route::post('activity/logic/upload', [ActivitiesController::class, 'createLogicActivity'])->name('activities.createLogicActivity');
     Route::get('activity/logic/{activityId}/files', [ActivityFileController::class, 'fetchFiles']);
 
     Route::post('/submission/logic/grade', [SubmissionController::class, 'gradeLogicSubmission']);
 
-    Route::get('grades/{classId}/fetch', [GradeController::class, 'fetchAllStudentGrade']);
+    Route::get('grades/{classId}/fetch', [GradeController::class, 'fetchAllStudentGrade'])->name('grades.fetchAllStudentGrade');
     Route::get('/grades/{classId}/student/{studentId}/scores', [ActivitiesController::class, 'fetchAllActivityWithStudentSubmission']);
-    Route::post('/grades/{gradeId}/update', [GradeController::class, 'updateGrade']);
+    Route::post('/grades/{gradeId}/update', [GradeController::class, 'updateGrade'])->name('grades.updateGrade');
 
-    Route::post('/assessment/coding/generate', [AiController::class, 'generateCodingProblem']);
+    Route::post('/assessment/coding/generate', [AiController::class, 'generateCodingProblem'])->name('ai.generateCodingProblem');
 
     Route::post('/events/create', [ScheduleController::class, 'createEvent']);
     Route::get('/events/fetch', [ScheduleController::class, 'fetchEvents']);

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 use App\Models\User;
 
@@ -11,6 +12,68 @@ class AuthTest extends TestCase
 {
 
     use RefreshDatabase;
+
+    public function test_user_registration_successful()
+    {
+        // Mock data for the registration request.
+        $requestData = [
+            'name' => 'John Doe',
+            'first_name' => 'John',
+            'middle_name' => 'Smith',
+            'last_name' => 'Doe',
+            'suffix' => 'Jr.',
+            'email' => 'john.doe@example.com',
+            'password' => 'password123',
+            'role' => 'user',
+            'phone' => '09123456789',
+        ];
+
+        // Send a POST request to the route handling the register method.
+        $response = $this->postJson('/api/register', $requestData);
+
+        // Assert the response status is 200.
+        $response->assertStatus(200);
+
+        // Assert the response message.
+        $response->assertJson(['message' => 'Registration']);
+
+        // Check the user is created in the database.
+        $this->assertDatabaseHas('users', [
+            'email' => $requestData['email'],
+            'name' => $requestData['name'],
+        ]);
+
+        // Check the password is hashed correctly.
+        $user = User::where('email', $requestData['email'])->first();
+        $this->assertTrue(Hash::check($requestData['password'], $user->password));
+
+        // Check the profile is created in the database.
+        $this->assertDatabaseHas('profiles', [
+            'user_id' => $user->id,
+            'profile_path' => 'profile_pictures/default.png',
+        ]);
+    }
+
+    public function test_user_registration_validation_fails()
+    {
+        // Mock incomplete data for the registration request.
+        $requestData = [
+            'name' => 'John Doe',
+            'first_name' => 'John',
+            // 'last_name' => '', // This field is intentionally missing
+            'email' => 'john.doe@example.com',
+            'password' => 'password123',
+            'role' => 'user',
+            'phone' => '09123456789',
+        ];
+
+        // Send a POST request with incomplete data.
+        $response = $this->postJson('/api/register', $requestData);
+
+        // Assert the response status is 422 (validation error).
+        $response->assertStatus(422);
+    }
+
     /**
      * A basic feature test example.
      */
