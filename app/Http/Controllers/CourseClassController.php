@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Submission;
 use App\Models\Activity;
 use Laravel\Prompts\Progress;
+use App\Models\Certificate;
 
 class CourseClassController extends Controller
 {
@@ -396,12 +397,15 @@ class CourseClassController extends Controller
                 ->where('student_id', $userId)
                 ->first();
 
+            $certificate = Certificate::where('class_id', $class->id)->first();
+
             return [
                 'id' => $class->id,
                 'name' => $class->name,
                 'subject' => $class->subject,
                 'class_code' => $class->classCode->code,
                 'grade' => $grade ? $grade : null,
+                'certificate' => $certificate ? $certificate : null,
             ];
         });
 
