@@ -32,4 +32,13 @@ class GradeController extends Controller
 
         return response()->json($grade);
     }
+
+    public function printAllStudentGrade($classId)
+    {
+        $grades = Grade::where('class_id', $classId)
+            ->with('student')
+            ->get();
+
+        return response()->json($grades);
+    }
 }

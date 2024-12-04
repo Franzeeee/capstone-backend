@@ -278,7 +278,7 @@ class SubmissionController extends Controller
             } else {
                 SubmissionFeedback::create([
                     'submission_id' => $submission->id,
-                    'feedback' => $validated['feedback']->feedback,
+                    'feedback' => $validated['feedback'],
                 ]);
             }
         }

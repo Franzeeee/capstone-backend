@@ -106,6 +106,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('grades/{classId}/fetch', [GradeController::class, 'fetchAllStudentGrade'])->name('grades.fetchAllStudentGrade');
     Route::get('/grades/{classId}/student/{studentId}/scores', [ActivitiesController::class, 'fetchAllActivityWithStudentSubmission']);
     Route::post('/grades/{gradeId}/update', [GradeController::class, 'updateGrade'])->name('grades.updateGrade');
+    Route::get('/grades/{classId}/print', [GradeController::class, 'printAllStudentGrade'])->name('grades.printAllStudentGrade');
 
     Route::post('/assessment/coding/generate', [AiController::class, 'generateCodingProblem'])->name('ai.generateCodingProblem');
 
