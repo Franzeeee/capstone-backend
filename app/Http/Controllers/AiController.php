@@ -76,23 +76,30 @@ class AiController extends Controller
         $code = $request->code;
 
         $message = "
-            Check the student's submission for the following problem:
-            Problem: $codingProblem
-            --------------------------------
-            Code: $code
+        Check the student's submission for the following problem:
+        Problem: $codingProblem
+        --------------------------------
+        Code: $code
+    
+        Total Score: [total score here]
+        Feedback:
+        - [feedback point 1]
+        - [feedback point 2]
+        - [feedback point 3]
+        ...
+    
+        Rubric:
+        - Correctness (60%): Passes standard and edge test cases provided by the platform.
+        - Efficiency (25%): Uses optimal algorithms and data structures for better time and space complexity.
+        - Code Quality (10%): Follows clean coding practices, proper naming conventions, and avoids redundancy.
+        - Edge Cases (5%): Handles boundary conditions and unexpected inputs effectively.
+    
+        The points should be between 0 and 100. Don't be too harsh on the student. Zero if no code. Ignore the \\n because it is just the code editor formatting. Also,
+        note that they can't resubmit. If no code is submitted then the score should be 0 and feedback is 'Tell them to practice more on the lesson.' 0 if no code is submitted.
+        Give them feedback on what they did wrong and how they can improve. The --- is for separating codingProblem and the code of the student. Also, always follow the format. 
+        Don't put any other response other than the one above.
+    ";
 
-            Total Score: [total score here]
-            Feedback:
-            - [feedback point 1]
-            - [feedback point 2]
-            - [feedback point 3]
-            ...
-
-            The points should be between 0 and 100. dont be too harsh on the student. Zero if no code. Ignore the \n because it is just the code editor formatting. Also,
-            note that they cant resubmit. If no code is submitted then the score should be 0 and feedback is tell them to practice more on the lesson. 0 if no code is submitted.
-            Give them feedback on what they did wrong and how they can improve. the - is for separating codingProblem and the code of the student. Also always follow the format. Dont put
-            any other response other than the one above.
-        ";
         try {
             $result = OpenAI::chat()->create([
                 'model' => 'gpt-4-turbo',

@@ -115,7 +115,7 @@ class CourseClassController extends Controller
         if ($request->subject === 'Python') {
             $seeder = new PythonAssessmentSeeder();
             $seeder->run($courseClass->id, $request->teacher_id);
-        } else {
+        } else if ($request->subject === 'Web Development') {
             $seeder = new WebAssessmentSeeder();
             $seeder->run($courseClass->id, $request->teacher_id);
         }
