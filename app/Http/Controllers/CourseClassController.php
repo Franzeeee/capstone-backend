@@ -18,6 +18,7 @@ use App\Models\Submission;
 use App\Models\Activity;
 use Laravel\Prompts\Progress;
 use App\Models\Certificate;
+use Database\Seeders\RAssessmentSeeder;
 
 class CourseClassController extends Controller
 {
@@ -117,6 +118,9 @@ class CourseClassController extends Controller
             $seeder->run($courseClass->id, $request->teacher_id);
         } else if ($request->subject === 'Web Development') {
             $seeder = new WebAssessmentSeeder();
+            $seeder->run($courseClass->id, $request->teacher_id);
+        } else if ($request->subject === 'R Programming') {
+            $seeder = new RAssessmentSeeder();
             $seeder->run($courseClass->id, $request->teacher_id);
         }
 
