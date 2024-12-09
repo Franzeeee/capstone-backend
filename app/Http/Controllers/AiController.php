@@ -95,9 +95,9 @@ class AiController extends Controller
         - Edge Cases (5%): Handles boundary conditions and unexpected inputs effectively.
     
         The points should be between 0 and 100. Don't be too harsh on the student. Zero if no code. Ignore the \\n because it is just the code editor formatting. Also,
-        note that they can't resubmit. If no code is submitted then the score should be 0 and feedback is 'Tell them to practice more on the lesson.' 0 if no code is submitted.
+        note that they can't resubmit. If no code is submitted then the score should be 0 and feedback is 'You did not submit any code. Please practice more on the lessons.' 0 if no code is submitted.
         Give them feedback on what they did wrong and how they can improve. The --- is for separating codingProblem and the code of the student. Also, always follow the format. 
-        Don't put any other response other than the one above.
+        Don't put any other response other than the one above. The feedback should be the feedback about their code and what do they need to improve or learn more.
     ";
 
         try {
