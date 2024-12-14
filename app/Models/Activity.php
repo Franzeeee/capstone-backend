@@ -48,4 +48,8 @@ class Activity extends Model
     {
         return $this->hasMany(ActivityFile::class);
     }
+    public function badges()
+    {
+        return $this->hasMany(Badge::class, 'activity_id');
+    }
 }

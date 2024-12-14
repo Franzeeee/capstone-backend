@@ -17,6 +17,7 @@ use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\SubmissionFileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\BadgeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -134,8 +135,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/notification/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
     Route::get('/notification/{id}/delete', [NotificationController::class, 'deleteNotification']);
     Route::get('/notification/{id}/deleteAll', [NotificationController::class, 'deleteAllNotifications']);
-});
 
+    Route::get('/badge/{activityId}/issue', [BadgeController::class, 'issueBadge']);
+    Route::get('/{activityId}/badge/fetch', [BadgeController::class, 'fetchActivityBadge']);
+    Route::get('/badge/{classId}/fetch', [BadgeController::class, 'fetchClassBadges']);
+    Route::get('/{studentId}/{classId}/badge/fetch', [BadgeController::class, 'fetchStudentBadge']);
+});
 
 
 

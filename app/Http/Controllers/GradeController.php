@@ -26,7 +26,7 @@ class GradeController extends Controller
         $grade = Grade::find($gradeId);
 
         $grade->final_grade = $validated['final_grade'];
-        $grade->remarks = $request->input('remarks') ?? "Keep going! Review your experience to understand where to improve next.";
+        $grade->remarks = $request->input('remarks') ?? "Great effort! Remember, every challenge is an opportunity to learn and grow. Keep striving to be your best self, and success will follow.";
 
         $grade->save();
 
