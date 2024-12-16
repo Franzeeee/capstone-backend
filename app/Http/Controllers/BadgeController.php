@@ -28,17 +28,24 @@ class BadgeController extends Controller
         $badgeTypes = ['Gold', 'Silver', 'Bronze'];
 
 
+        // Initialize the badge array
+        $badge = [];
+
         // Issue badges to top 3 students
         foreach ($submissions as $index => $submission) {
-            Badge::create([
+            $createdBadge = Badge::create([
                 'activity_id' => $activityId,
                 'student_id' => $submission->student_id,
                 'badge_type' => $badgeTypes[$index], // Gold, Silver, or Bronze
                 'title' => $badgeTypes[$index] . ' Badge', // E.g., "Gold Badge"
                 'description' => 'Earned a ' . $badgeTypes[$index] . ' Badge for "' . $activity->title . '" Activity!',
             ]);
+
+            // Store the created badge in the badge array
+            $badge[] = $createdBadge;
         }
-        return response()->json(['message' => 'Badges issued successfully']);
+
+        return response()->json(['message' => 'Badges issued successfully', 'data' => $badge]);
     }
 
     public function fetchActivityBadge($activityId)

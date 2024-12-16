@@ -143,5 +143,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
+Route::get('/class/{classId}/gradesheet', [GradeController::class, 'fetchAllGrades']);
+
 
 Route::get('/verify-email/{id}', [AuthController::class, 'verify'])->name('verification.verify');
